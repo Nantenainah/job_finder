@@ -1,6 +1,16 @@
 const express = require('express');
 const app = express();
 
-app.listen(5000, () => {
-    console.log("Listening on port 5000");
+require('dotenv').config({ path: './config/.env' })
+require('./config/db')
+
+// middleware
+
+
+// routes
+
+
+// server listening
+app.listen(process.env.PORT, () => {
+    console.log(`Listening on port ${process.env.PORT}`);
 })
