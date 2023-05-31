@@ -1,11 +1,13 @@
 const express = require('express')
 const app = express()
 const usersRoute = require('./users/route')
+const bodyParser = require('body-parser')
 
 require('dotenv').config({ path: './config/.env' })
 require('./config/db')
 
 // middleware
+app.use(bodyParser.json())
 
 // routes
 app.get('/', (req, res) => {
