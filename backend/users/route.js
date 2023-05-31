@@ -36,9 +36,7 @@ router.post('/', async (req, res) => {
 	if (!['admin', 'applicant', 'recruiter'].includes(role)) {
 		return res.sendStatus(400)
 	}
-	const duplicate = await User.findOne().where({
-		email,
-	})
+	const duplicate = await User.findOne({ email })
 	if (duplicate !== null) {
 		// Email already used
 		return res.sendStatus(409)
