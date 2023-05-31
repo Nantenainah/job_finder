@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('./model')
+const bcrypt = require('bcrypt')
 
 /**
  * Get all users
@@ -28,19 +29,31 @@ router.get('/:userId', async (req, res) => {
  * Create a user
  */
 router.post('/', async (req, res) => {
-	const { name, firstName, role } = req.body
-	if ([name, firstName, role].includes(undefined)) {
+	const { name, firstName, email, password, role } = req.body
+	if ([name, firstName, role, email, password].includes(undefined)) {
 		return res.sendStatus(400)
 	}
 	if (!['admin', 'applicant', 'recruiter'].includes(role)) {
 		return res.sendStatus(400)
 	}
+	const duplicate = await User.findOne().where({
+		email,
+	})
+	if (duplicate !== null) {
+		// Email already used
+		return res.sendStatus(409)
+	}
+
+	const hashedPassword = await bcrypt.hash(password, 10)
 	const user = await User.create({
 		name,
 		firstName,
 		role,
+		email,
+		password: hashedPassword,
 	})
-	return res.json(user)
+
+	return res.status(201).json(user)
 })
 
 module.exports = router
