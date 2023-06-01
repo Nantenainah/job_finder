@@ -1,7 +1,8 @@
-const express = require('express')
+import express from 'express'
+import User from './model'
+import bcrypt from 'bcrypt'
+
 const router = express.Router()
-const User = require('./model')
-const bcrypt = require('bcrypt')
 
 /**
  * Get all users
@@ -54,4 +55,4 @@ router.post('/', async (req, res) => {
 	return res.status(201).json(user)
 })
 
-module.exports = router
+export default router
