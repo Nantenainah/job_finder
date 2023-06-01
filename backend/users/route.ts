@@ -32,9 +32,11 @@ router.get('/:userId', async (req, res) => {
 router.post('/', async (req, res) => {
 	const { name, firstName, email, password, role } = req.body
 	if ([name, firstName, role, email, password].includes(undefined)) {
+		// Data invalid
 		return res.sendStatus(400)
 	}
 	if (!['admin', 'applicant', 'recruiter'].includes(role)) {
+		// Role invalid
 		return res.sendStatus(400)
 	}
 	const duplicate = await User.findOne({ email })
