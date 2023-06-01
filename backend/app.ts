@@ -2,7 +2,7 @@ import express from 'express'
 import usersRoute from './users/route'
 import bodyParser from 'body-parser'
 import * as database from './config/database'
-require('dotenv').config({ path: './config/.env' })
+require('dotenv')
 
 const app = express()
 
