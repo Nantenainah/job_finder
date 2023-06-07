@@ -1,6 +1,5 @@
 import express from 'express'
-import usersRoute from './users/route'
-import postsRoute from './posts/route'
+import userRoute from './routes/user'
 import bodyParser from 'body-parser'
 import * as database from './config/database'
 require('dotenv').config({ path: './.env' })
@@ -14,7 +13,7 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => {
 	res.send('Hello world')
 })
-app.use('/users', usersRoute)
+app.use('/users', userRoute)
 
 // server listening
 // Wait the database to connect before launching everything

@@ -1,11 +1,4 @@
-import mongoose from 'mongoose'
-
-/* 
-    Role: 
-    "admin": administrator 
-    "applicant": user who wants to apply to jobs 
-    "recruiter": user who post jobs 
-*/
+import mongoose, { Schema } from 'mongoose'
 
 const UserSchema = new mongoose.Schema({
 	name: {
@@ -33,6 +26,12 @@ const UserSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
+	posts: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'Post',
+		},
+	],
 })
 
 const User = mongoose.model('User', UserSchema)
