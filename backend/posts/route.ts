@@ -2,11 +2,17 @@ import express from "express"
 import Post from "./model"
 const router = express.Router()
 
+/**
+ * Get one all posts
+ */
 router.get('/', async (req, res) => {
     const posts = await Post.find()
     return res.json(posts)
 })
 
+/**
+ * Get one post
+ */
 router.get('/:postId', async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId)
@@ -16,6 +22,9 @@ router.get('/:postId', async (req, res) => {
     }
 })
 
+/**
+ * Create one post
+ */
 router.post('/', async (req, res) => {
     const post = new Post(req.body)
     try {
