@@ -25,7 +25,7 @@ const schema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	entreprise: {
+	enterprise: {
 		type: String,
 		required: true,
 	},
