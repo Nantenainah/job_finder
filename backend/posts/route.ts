@@ -19,7 +19,11 @@ router.get('/:postId', async (req, res) => {
 router.post('/', async (req, res) => {
     const post = new Post(req.body)
     try {
+<<<<<<< HEAD
         await post.validate
+=======
+        await post.validate()
+>>>>>>> 1838c9f52d116937748f321f6705c559931c689d
         post.save()
         return res.json(post)
     } catch {
