@@ -19,7 +19,7 @@ router.get('/:postId', async (req, res) => {
 router.post('/', async (req, res) => {
     const post = new Post(req.body)
     try {
-        await post.validate
+        await post.validate()
         post.save()
         return res.json(post)
     } catch {
