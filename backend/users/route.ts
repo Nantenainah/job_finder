@@ -1,6 +1,7 @@
 import express from 'express'
 import User from './model'
 import bcrypt from 'bcrypt'
+import postsRoute from "../posts/route"
 
 const router = express.Router()
 
@@ -56,5 +57,20 @@ router.post('/', async (req, res) => {
 
 	return res.status(201).json(user)
 })
+
+
+/**
+ * Posts Route
+ * Test if valid user
+ */
+router.use('/:userId', async (req, res, next) => {
+	try {
+		const user = await User.findById(req.params.userId)
+		next()
+	} catch {
+		res.sendStatus(400)
+	}
+})
+router.use('/:userId/posts', postsRoute)
 
 export default router
