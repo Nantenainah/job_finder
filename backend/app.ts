@@ -2,12 +2,14 @@ import express from 'express'
 import userRoute from './routes/user'
 import postRoute from './routes/post'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 import * as database from './config/database'
 require('dotenv').config({ path: './.env' })
 
 const app = express()
 
 // middleware
+app.use(cors())
 app.use(bodyParser.json())
 
 // routes
