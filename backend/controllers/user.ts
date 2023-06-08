@@ -4,16 +4,13 @@ import User from '../models/user'
 import Post from '../models/post'
 
 async function all(req: Request, res: Response) {
-	// Omitting the 'posts' column because it is louder
-	const users = await User.find({}, '-posts')
+	const users = await User.find()
 	res.json(users)
 }
 
 async function find(req: Request, res: Response) {
 	try {
-		// user found
-		// Omitting the 'posts' column because it is louder
-		const user = await User.findById(req.params.userId, '-posts')
+		const user = await User.findById(req.params.userId)
 		return res.json(user)
 	} catch {
 		// user not found

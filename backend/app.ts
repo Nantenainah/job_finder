@@ -11,9 +11,6 @@ const app = express()
 app.use(bodyParser.json())
 
 // routes
-app.get('/', (req, res) => {
-	res.send('Hello world')
-})
 app.use('/users', userRoute)
 app.use('/posts', postRoute)
 
@@ -21,6 +18,6 @@ app.use('/posts', postRoute)
 // Wait the database to connect before launching everything
 database.config(() => {
 	app.listen(process.env.PORT, () => {
-		console.log(`Listening on port ${process.env.PORT}`)
+		console.log(`Server running on http://localhost:${process.env.PORT}`)
 	})
 })
