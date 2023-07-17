@@ -1,6 +1,7 @@
 import React, { FormEvent, FunctionComponent, ChangeEvent, useState, useEffect } from "react";
-import "../../App.scss";
 import FormUsers, { createUser } from "../../api/UserApi";
+import "../../App.scss";
+import '../../styles/user.scss'
 
 const Register: FunctionComponent = () => {
     
@@ -26,8 +27,8 @@ const Register: FunctionComponent = () => {
     }
 
     return <>
-        <h2 className="title">Remplir ce formulaire:</h2>
         <form onSubmit={handleSubmitUser} className="form-user">
+        <h2 className="title">Remplir ce formulaire:</h2>
             <label htmlFor="name">Entrer votre nom</label>
             <input type="text" name="name" id="name" value={user.name} onChange={handleChangeUser} autoComplete="false" />
             <label htmlFor="firstName">Entrer votre prénom</label>
