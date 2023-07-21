@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faCancel } from '@fortawesome/free-solid-svg-icons';
+import { faAddressCard, faBars, faCalendarAlt, faCheckCircle, faHome, faInfoCircle, faTags, faXmark } from '@fortawesome/free-solid-svg-icons';
 import '../styles/home.scss';
 
 const Navbar: FunctionComponent = () => {
@@ -72,41 +72,47 @@ const Navbar: FunctionComponent = () => {
         
         <div className="menu-sm">
           <button className="menu-btn" onClick={handleMenuClick}>
-            <FontAwesomeIcon icon={menuOpen? faCancel : faBars} className="menu-icon" />
+            <FontAwesomeIcon icon={menuOpen? faXmark : faBars} className="menu-icon" />
           </button>
 
           <nav className={menuOpen ? 'block': 'hidden'} onDoubleClick={handleMouseLeave}>
             <ul>
               <li>
+              <FontAwesomeIcon icon={faHome} className="nav-icon" />
                 <Link to="/">
                   Home
                 </Link>
-              </li>
+              </li><hr />
               <li>
+              <FontAwesomeIcon icon={faInfoCircle} className="nav-icon" />
                 <Link to="/about">
                   A propos
                 </Link>
-              </li>
+              </li><hr />
               <li>
+              <FontAwesomeIcon icon={faAddressCard} className="nav-icon" />
                 <Link to="/posts">
                   Postes
                 </Link>
-              </li>
+              </li><hr />
               <li>
+              <FontAwesomeIcon icon={faCheckCircle} className="nav-icon" />
                 <Link to="/status">
                   Status
                 </Link>
-              </li>
+              </li><hr />
               <li>
+              <FontAwesomeIcon icon={faTags} className="nav-icon" />
                 <Link to="/offres">
                   Offres
                 </Link>
-              </li>
+              </li><hr />
               <li>
+              <FontAwesomeIcon icon={faCalendarAlt} className="nav-icon" />
                 <Link to="/events">
                   Events
                 </Link>
-              </li>
+              </li><hr />
             </ul>
           </nav>
         </div>
@@ -119,7 +125,6 @@ const Navbar: FunctionComponent = () => {
             S'inscrire
           </Link>
         </div>
-
       </div>
     );
   };
