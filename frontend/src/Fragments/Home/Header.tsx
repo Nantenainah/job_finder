@@ -24,6 +24,7 @@ export const HomeHeader: FunctionComponent = () => {
                             placeholder="Search..."
                             value={searchTerm}
                             onChange={handleChange}
+                            style={{paddingLeft: 20}}
                         />
                         <FontAwesomeIcon icon={faSearch} className="search-icon" />
                     </div>

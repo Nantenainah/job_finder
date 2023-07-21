@@ -1,6 +1,5 @@
 import React, { FormEvent, FunctionComponent, ChangeEvent, useState, useEffect } from "react";
 import FormUsers, { createUser } from "../../api/UserApi";
-import "../../App.scss";
 import '../../styles/user.scss'
 
 const Register: FunctionComponent = () => {
