@@ -16,7 +16,7 @@ export const HomeHeader: FunctionComponent = () => {
                 <div className="fusion">
                     <div>
                         <img src={logo} alt="logo" className="header-logo" />
-                        <p>Job Finder</p>
+                        <p>JOB FINDER</p>
                     </div>
                     <div className="search">
                         <input

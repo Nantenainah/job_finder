@@ -80,7 +80,7 @@ const Navbar: FunctionComponent = () => {
               <li>
               <FontAwesomeIcon icon={faHome} className="nav-icon" />
                 <Link to="/">
-                  Home
+                  Acceuil
                 </Link>
               </li><hr />
               <li>
