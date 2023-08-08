@@ -1,22 +1,8 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Register from './components/users/UserRegister';
-import Home from './components/Home/home';
-import UserLogin from './components/users/UserLogin';
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
 
-const App = () => {
-  return (
-    <React.StrictMode>
-      <Router>
-        <Routes>
-          <Route index path="/" element={<Home />} />
-          <Route index path="/register" element={<Register />} />
-          <Route index path="/login" element={<UserLogin />} />
-        </Routes>
-      </Router>
-    </React.StrictMode>
-    
-  )
+function App() {
+    return <RouterProvider router={router}></RouterProvider>;
 }
 
-export default App
+export default App;
