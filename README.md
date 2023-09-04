@@ -10,7 +10,9 @@
 
 -   [Admin API Routes Documentation](#admin-api-routes-documentation)
 
-# Applicant API Routes Documentation {#applicant-api-routes-documentation}
+<a name="applicant-api-routes-documentation"></a>
+
+# Applicant API Routes Documentation
 
 This documentation provides information about the API routes for managing applicants.
 
@@ -77,7 +79,9 @@ This documentation provides information about the API routes for managing applic
     -   JSON: Deleted applicant object.
     -   HTTP Status: 404 Not Found (if applicant with the provided ID does not exist).
 
-# Recruiter API Routes Documentation {#recruiter-api-routes-documentation}
+<a name="recruiter-api-routes-documentation"></a>
+
+# Recruiter API Routes Documentation
 
 This documentation provides information about the API routes for managing recruiters and their associated job listings.
 
@@ -182,7 +186,9 @@ This documentation provides information about the API routes for managing recrui
     -   JSON: Newly created job listing object.
     -   HTTP Status: 404 Not Found (if recruiter with the provided ID does not exist).
 
-# Job Listing API Routes Documentation {#job-listing-api-routes-documentation}
+<a name="job-listing-api-routes-documentation"></a>
+
+# Job Listing API Routes Documentation
 
 This documentation provides information about the API routes for managing job listings.
 
@@ -205,7 +211,9 @@ This documentation provides information about the API routes for managing job li
     -   JSON: Job listing object.
     -   HTTP Status: 404 Not Found (if job listing with the provided ID does not exist).
 
-# Admin API Routes Documentation {#admin-api-routes-documentation}
+<a name="admin-api-routes-documentation"></a>
+
+# Admin API Routes Documentation
 
 This documentation provides information about the API routes for managing admin profiles.
 
