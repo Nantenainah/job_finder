@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
 import Container from "../Container/Container";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import brandLogo from "../../assets/brand.png";
 
 function DesktopNavLink(props: { children: React.ReactNode; to: string }) {
     return (
@@ -36,8 +39,17 @@ function Navbar() {
             <nav>
                 <Container>
                     <div className="flex justify-between items-center md:justify-start">
-                        <NavLink to="/" className="font-semibold h3">
-                            Job-finder
+                        <NavLink to="/" className="flex items-center">
+                            <img
+                                src={brandLogo}
+                                className="mr-3"
+                                alt="Job finder brand icon"
+                                width={35}
+                                height={35}
+                            />
+                            <span className="text-lg font-semibold">
+                                Job-finder
+                            </span>
                         </NavLink>
 
                         {/* Desktop version */}
@@ -52,20 +64,7 @@ function Navbar() {
                             className="md:hidden"
                             onClick={() => setIsOpen(!isOpen)}
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                />
-                            </svg>
+                            <FontAwesomeIcon icon={faBars} />
                         </button>
                     </div>
 
