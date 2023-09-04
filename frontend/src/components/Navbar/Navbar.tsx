@@ -8,8 +8,8 @@ function DesktopNavLink(props: { children: React.ReactNode; to: string }) {
             to={props.to}
             className={({ isActive }) =>
                 isActive
-                    ? "py-5 border-b-4 border-blue-500 text-blue-500"
-                    : "py-5 text-gray-500"
+                    ? "py-5 px-2 border-b-4 border-blue-500 text-blue-500 "
+                    : "py-5 px-2 text-gray-500 hover:bg-gray-200 transition duration-200"
             }
         >
             {props.children}
@@ -41,7 +41,7 @@ function Navbar() {
                         </NavLink>
 
                         {/* Desktop version */}
-                        <div className="hidden md:ml-10 md:flex space-x-7">
+                        <div className="hidden md:ml-10 md:flex space-x-5">
                             <DesktopNavLink to="/">Emplois</DesktopNavLink>
                             <DesktopNavLink to="/publish">
                                 Publier
@@ -52,7 +52,20 @@ function Navbar() {
                             className="md:hidden"
                             onClick={() => setIsOpen(!isOpen)}
                         >
-                            Menu
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4 6h16M4 12h16M4 18h16"
+                                />
+                            </svg>
                         </button>
                     </div>
 
