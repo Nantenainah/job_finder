@@ -5,6 +5,7 @@ import cors from "cors";
 import * as database from "./config/database";
 import recruiterRouter from "./routes/users/recruiter";
 import applicantRouter from "./routes/users/applicant";
+import adminRouter from "./routes/users/admin";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 // routes
 app.use("/recruiters", recruiterRouter);
 app.use("/applicants", applicantRouter);
+app.use("/admins", adminRouter);
 
 // server listening
 // Wait the database to connect before launching everything
