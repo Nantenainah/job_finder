@@ -1,6 +1,4 @@
 import express from "express";
-import usersRouter from "./routes/users/user";
-import postRoute from "./routes/post";
 import bodyParser from "body-parser";
 import cors from "cors";
 import * as database from "./config/database";
@@ -13,8 +11,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // routes
-app.use("/users", usersRouter);
-app.use("/posts", postRoute);
 
 // server listening
 // Wait the database to connect before launching everything

@@ -1,5 +1,5 @@
 import { Document, Schema, model } from "mongoose";
-import { IRecruiter } from "./users/recruiter";
+import { IRecruiter } from "./recruiter";
 
 interface IJobListing extends Document {
     recruiter: Schema.Types.ObjectId | IRecruiter;
