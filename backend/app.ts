@@ -3,9 +3,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import * as database from "./config/database";
-import recruiterRouter from "./routes/users/recruiter";
-import applicantRouter from "./routes/users/applicant";
-import adminRouter from "./routes/users/admin";
+import recruiterRouter from "./routes/recruiter";
+import applicantRouter from "./routes/applicant";
+import adminRouter from "./routes/admin";
 
 const app = express();
 

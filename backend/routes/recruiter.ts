@@ -1,14 +1,14 @@
 import express from "express";
-import Applicant from "../../models/applicant";
+import Recruiter from "../models/recruiter";
 
 const router = express.Router();
 
 router.post("/", async (req, res) => {
     try {
-        const applicantData = req.body;
-        const newApplicant = new Applicant(applicantData);
-        await newApplicant.save();
-        res.status(201).json(newApplicant);
+        const recruiterData = req.body;
+        const newRecruiter = new Recruiter(recruiterData);
+        await newRecruiter.save();
+        res.status(201).json(newRecruiter);
     } catch (error: any) {
         res.status(400).json({ error: error.message });
     }
@@ -16,8 +16,8 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
     try {
-        const applicants = await Applicant.find();
-        res.json(applicants);
+        const recruiters = await Recruiter.find();
+        res.json(recruiters);
     } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
@@ -25,11 +25,11 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        const applicant = await Applicant.findById(req.params.id);
-        if (!applicant) {
-            return res.status(404).json({ message: "Applicant not found" });
+        const recruiter = await Recruiter.findById(req.params.id);
+        if (!recruiter) {
+            return res.status(404).json({ message: "Recruiter not found" });
         }
-        res.json(applicant);
+        res.json(recruiter);
     } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
@@ -37,15 +37,15 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
     try {
-        const updatedApplicant = await Applicant.findByIdAndUpdate(
+        const updatedRecruiter = await Recruiter.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }
         );
-        if (!updatedApplicant) {
-            return res.status(404).json({ message: "Applicant not found" });
+        if (!updatedRecruiter) {
+            return res.status(404).json({ message: "Recruiter not found" });
         }
-        res.json(updatedApplicant);
+        res.json(updatedRecruiter);
     } catch (error: any) {
         res.status(400).json({ error: error.message });
     }
@@ -53,13 +53,13 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     try {
-        const deletedApplicant = await Applicant.findByIdAndRemove(
+        const deletedRecruiter = await Recruiter.findByIdAndRemove(
             req.params.id
         );
-        if (!deletedApplicant) {
-            return res.status(404).json({ message: "Applicant not found" });
+        if (!deletedRecruiter) {
+            return res.status(404).json({ message: "Recruiter not found" });
         }
-        res.json(deletedApplicant);
+        res.json(deletedRecruiter);
     } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
