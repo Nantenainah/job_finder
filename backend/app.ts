@@ -6,6 +6,7 @@ import * as database from "./config/database";
 import recruiterRouter from "./routes/recruiter";
 import applicantRouter from "./routes/applicant";
 import adminRouter from "./routes/admin";
+import jobListingRouter from "./routes/job-listing";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 app.use("/recruiters", recruiterRouter);
 app.use("/applicants", applicantRouter);
 app.use("/admins", adminRouter);
+app.use("/job-listings", jobListingRouter);
 
 // server listening
 // Wait the database to connect before launching everything
