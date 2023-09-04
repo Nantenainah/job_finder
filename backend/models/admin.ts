@@ -1,27 +1,26 @@
 import { Document, Schema, model } from "mongoose";
 
-export interface IUser extends Document {
+export interface IAdminBase extends Document {
     email: string;
     username: string;
     lastName: string;
     firstName: string;
     password: string;
-    type: "admin" | "applicant" | "recruiter";
 }
 
-const userSchema = new Schema<IUser>({
+export interface IAdmin extends IAdminBase {
+    fullName?: string;
+}
+
+const adminSchema = new Schema<IAdmin>({
     email: { type: String, required: true, unique: true },
     username: { type: String, required: true },
     lastName: { type: String, required: true },
     firstName: { type: String, required: true },
     password: { type: String, required: true },
-    type: {
-        type: String,
-        enum: ["admin", "applicant", "recruiter"],
-        required: true,
-    },
+    fullName: { type: String },
 });
 
-const UserModel = model<IUser>("User", userSchema);
+const AdminModel = model<IAdmin>("Admin", adminSchema);
 
-export default UserModel;
+export default AdminModel;
