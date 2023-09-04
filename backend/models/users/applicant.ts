@@ -1,17 +1,27 @@
 import { Document, Schema, model } from "mongoose";
-import { IUser } from "./user";
 
-export interface IApplicant extends Document {
-    user: Schema.Types.ObjectId | IUser;
-    phoneNumber: string;
-    address: string;
-    resume: string;
-    coverLetter: string;
-    jobPreference: string;
+export interface IApplicantBase extends Document {
+    email: string;
+    username: string;
+    lastName: string;
+    firstName: string;
+    password: string;
+}
+
+export interface IApplicant extends IApplicantBase {
+    phoneNumber?: string;
+    address?: string;
+    resume?: string;
+    coverLetter?: string;
+    jobPreference?: string;
 }
 
 const applicantSchema = new Schema<IApplicant>({
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    email: { type: String, required: true, unique: true },
+    username: { type: String, required: true },
+    lastName: { type: String, required: true },
+    firstName: { type: String, required: true },
+    password: { type: String, required: true },
     phoneNumber: { type: String },
     address: { type: String },
     resume: { type: String },
