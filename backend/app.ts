@@ -1,8 +1,10 @@
+require("dotenv").config({ path: "./.env" });
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import * as database from "./config/database";
-require("dotenv").config({ path: "./.env" });
+import recruiterRouter from "./routes/users/recruiter";
+import applicantRouter from "./routes/users/applicant";
 
 const app = express();
 
@@ -11,6 +13,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // routes
+app.use("/recruiters", recruiterRouter);
+app.use("/applicants", applicantRouter);
 
 // server listening
 // Wait the database to connect before launching everything
