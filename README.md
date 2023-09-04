@@ -1,6 +1,16 @@
 # Documentation
 
-# Applicant API Routes Documentation
+# Table of Contents
+
+-   [Applicant API Routes Documentation](#applicant-api-routes-documentation)
+
+-   [Recruiter API Routes Documentation](#recruiter-api-routes-documentation)
+
+-   [Job Listing API Routes Documentation](#job-listing-api-routes-documentation)
+
+-   [Admin API Routes Documentation](#admin-api-routes-documentation)
+
+# Applicant API Routes Documentation {#applicant-api-routes-documentation}
 
 This documentation provides information about the API routes for managing applicants.
 
@@ -67,7 +77,7 @@ This documentation provides information about the API routes for managing applic
     -   JSON: Deleted applicant object.
     -   HTTP Status: 404 Not Found (if applicant with the provided ID does not exist).
 
-# Recruiter API Routes Documentation
+# Recruiter API Routes Documentation {#recruiter-api-routes-documentation}
 
 This documentation provides information about the API routes for managing recruiters and their associated job listings.
 
@@ -172,7 +182,7 @@ This documentation provides information about the API routes for managing recrui
     -   JSON: Newly created job listing object.
     -   HTTP Status: 404 Not Found (if recruiter with the provided ID does not exist).
 
-# Job Listing API Routes Documentation
+# Job Listing API Routes Documentation {#job-listing-api-routes-documentation}
 
 This documentation provides information about the API routes for managing job listings.
 
@@ -194,3 +204,66 @@ This documentation provides information about the API routes for managing job li
     -   HTTP Status: 200 OK
     -   JSON: Job listing object.
     -   HTTP Status: 404 Not Found (if job listing with the provided ID does not exist).
+
+# Admin API Routes Documentation {#admin-api-routes-documentation}
+
+This documentation provides information about the API routes for managing admin profiles.
+
+## Create a New Admin Profile
+
+-   **Route:** POST /admins
+-   **Purpose:** Create a new admin profile.
+-   **Request Body:**
+    -   Required fields:
+        -   `email`: Admin's email address (string, required, unique).
+        -   `username`: Admin's username (string, required).
+        -   `lastName`: Admin's last name (string, required).
+        -   `firstName`: Admin's first name (string, required).
+        -   `password`: Admin's password (string, required).
+    -   Optional fields:
+        -   `fullName`: Admin's full name (string).
+-   **Response:**
+    -   HTTP Status: 201 Created
+    -   JSON: Newly created admin profile object.
+
+## Get All Admin Profiles
+
+-   **Route:** GET /admins
+-   **Purpose:** Retrieve a list of all admin profiles.
+-   **Response:**
+    -   HTTP Status: 200 OK
+    -   JSON: Array of admin profile objects.
+
+## Get an Admin Profile by ID
+
+-   **Route:** GET /admins/:id
+-   **Purpose:** Retrieve an admin profile by its unique ID.
+-   **Request URL Parameters:**
+    -   `id`: Unique identifier of the admin profile.
+-   **Response:**
+    -   HTTP Status: 200 OK
+    -   JSON: Admin profile object.
+    -   HTTP Status: 404 Not Found (if admin profile with the provided ID does not exist).
+
+## Update an Admin Profile
+
+-   **Route:** PUT /admins/:id
+-   **Purpose:** Update an admin profile by its unique ID.
+-   **Request URL Parameters:**
+    -   `id`: Unique identifier of the admin profile.
+-   **Request Body:** JSON object containing the fields to be updated.
+-   **Response:**
+    -   HTTP Status: 200 OK
+    -   JSON: Updated admin profile object.
+    -   HTTP Status: 404 Not Found (if admin profile with the provided ID does not exist).
+
+## Delete an Admin Profile
+
+-   **Route:** DELETE /admins/:id
+-   **Purpose:** Delete an admin profile by its unique ID.
+-   **Request URL Parameters:**
+    -   `id`: Unique identifier of the admin profile.
+-   **Response:**
+    -   HTTP Status: 200 OK
+    -   JSON: Deleted admin profile object.
+    -   HTTP Status: 404 Not Found (if admin profile with the provided ID does not exist).
