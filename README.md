@@ -171,3 +171,26 @@ This documentation provides information about the API routes for managing recrui
     -   HTTP Status: 201 Created
     -   JSON: Newly created job listing object.
     -   HTTP Status: 404 Not Found (if recruiter with the provided ID does not exist).
+
+# Job Listing API Routes Documentation
+
+This documentation provides information about the API routes for managing job listings.
+
+## Get All Job Listings
+
+-   **Route:** GET /job-listings
+-   **Purpose:** Retrieve a list of all job listings.
+-   **Response:**
+    -   HTTP Status: 200 OK
+    -   JSON: Array of job listing objects.
+
+## Get a Job Listing by ID
+
+-   **Route:** GET /job-listings/:id
+-   **Purpose:** Retrieve a job listing by its unique ID.
+-   **Request URL Parameters:**
+    -   `id`: Unique identifier of the job listing.
+-   **Response:**
+    -   HTTP Status: 200 OK
+    -   JSON: Job listing object.
+    -   HTTP Status: 404 Not Found (if job listing with the provided ID does not exist).
