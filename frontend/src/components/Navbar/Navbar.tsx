@@ -51,7 +51,6 @@ const Navbar: React.FC<NavbarProps> = ({ isConnected }) => {
                     text-lightColor cursor-pointer transition duration-300 md:hidden`}>
                     se connecter
                 </NavLink>
-
             </nav>
 
             {/* -------------------------Si l'utilisateur est c-------------------------*/}
