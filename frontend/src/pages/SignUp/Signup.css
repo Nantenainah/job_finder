@@ -5,9 +5,6 @@
     --bleu-color:rgb(0, 0, 255,0.5);
     --bluelight-color:rgb(37, 104, 230,0.9);
     }
-    body{
-        background-color: var(--primary-color);
-    }
     #contenair{
         width: 360px;
         height: 550px;
