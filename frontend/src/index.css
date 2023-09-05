@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Poppins;
+:root{
+  --primary-color:#f0f0f3;
+  --dark-color:rgba(174,174,192,0.4);
+  --light-color:#fff;
+  --bleu-color:rgb(0, 0, 255,0.5);
+  --bluelight-color:rgb(37, 104, 230,0.9);
+}
+  
+  body {
+    font-family: Poppins;
+    background-color: var(--primary-color);
 }

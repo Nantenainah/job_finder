@@ -35,7 +35,7 @@ function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <header className="bg-gray-100 py-5 md:py-0">
+        <header className="bg-white border-b py-5 md:py-0">
             <nav>
                 <Container>
                     <div className="flex justify-between items-center">
