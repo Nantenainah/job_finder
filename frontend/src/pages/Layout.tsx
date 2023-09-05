@@ -9,7 +9,7 @@ function Layout() {
             <main>
                 <Outlet />
             </main>
-           <Login/>
+            {/* <Login/> */}
         </>
     );
 }
