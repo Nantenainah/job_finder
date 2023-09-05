@@ -1,84 +1,96 @@
-import { NavLink } from "react-router-dom";
-import Container from "../Container/Container";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import brandLogo from "../../assets/brand.png";
+import { useState } from 'react'
+import { Link, NavLink } from 'react-router-dom';
+import { MENU_DATA } from '../../constants/Menu';
+import { BiMenuAltLeft } from "react-icons/bi";
+import { AiTwotoneBell } from "react-icons/ai";
 
-function DesktopNavLink(props: { children: React.ReactNode; to: string }) {
-    return (
-        <NavLink
-            to={props.to}
-            className={({ isActive }) =>
-                isActive
-                    ? "py-5 px-2 border-b-4 border-blue-500 text-blue-500 "
-                    : "py-5 px-2 text-gray-500 hover:bg-gray-200 transition duration-200"
-            }
-        >
-            {props.children}
-        </NavLink>
-    );
-}
+type NavbarProps = {
+    isConnected: boolean;
+};
 
-function MobileNavLink(props: { children: React.ReactNode; to: string }) {
-    return (
-        <NavLink
-            to={props.to}
-            className={({ isActive }) => (isActive ? " text-blue-500" : "")}
-        >
-            {props.children}
-        </NavLink>
-    );
-}
+const Navbar: React.FC<NavbarProps> = ({ isConnected }) => {
 
-function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isMenuClicked, setMenuClicked] = useState(false);
+    const modifiedMenuData = [...MENU_DATA];
+
+    // Si l'utilisateur est connecté, add "Mon profil"
+    (isConnected) && (modifiedMenuData.push({ path: '/profile', title: 'Mon profil' }))
 
     return (
-        <header className="bg-gray-100 py-5 md:py-0">
-            <nav>
-                <Container>
-                    <div className="flex justify-between items-center md:justify-start">
-                        <NavLink to="/" className="flex items-center">
-                            <img
-                                src={brandLogo}
-                                className="mr-3"
-                                alt="Job finder brand icon"
-                                width={35}
-                                height={35}
-                            />
-                            <span className="text-lg font-semibold">
-                                Job-finder
-                            </span>
-                        </NavLink>
+        <header className='bg-lightColor flex justify-between gap-14 items-center 
+                border-b-[1px] py-[1rem] px-[2rem] md:px-[5rem]'>
 
-                        {/* Desktop version */}
-                        <div className="hidden md:ml-10 md:flex space-x-5">
-                            <DesktopNavLink to="/">Emplois</DesktopNavLink>
-                            <DesktopNavLink to="/publish">
-                                Publier
-                            </DesktopNavLink>
-                        </div>
+            <NavLink to={'/'} className="logo flex gap-2 items-center cursor-pointer">
+                <img
+                    src="./logo.png" alt="logo JobFinder"
+                    height={10}
+                    width={25}
+                />
+                <h1 className="text-blueColor text-[15px] font-bold">
+                    JobFinder
+                </h1>
+            </NavLink>
 
-                        <button
-                            className="md:hidden"
-                            onClick={() => setIsOpen(!isOpen)}
-                        >
-                            <FontAwesomeIcon icon={faBars} />
-                        </button>
-                    </div>
+            <nav className={`flex flex-col items-center gap-6 text-[14px] bg-lightColor rounded-bl-lg overflow-hidden 
+                py-4 shadow-sm shadow-gray-100 absolute top-20 right-0 transition-all duration-300
+                ${(isMenuClicked) ? 'w-[50%]' : 'w-0'} md:w-fit md:static md:flex-row md:shadow-none`}>
 
-                    {/* Mobile version */}
-                    {isOpen && (
-                        <div className="mt-4 md:hidden flex flex-col space-y-3">
-                            <MobileNavLink to="/">Emplois</MobileNavLink>
-                            <MobileNavLink to="/publish">Publier</MobileNavLink>
-                        </div>
-                    )}
-                </Container>
+                {modifiedMenuData.map(({ path, title }) => (
+                    <NavLink
+                        to={path}
+                        className={({ isActive }) =>
+                            `menuList ${isActive ? "text-blueColor" : "text-gray-600 hover:text-blueColor before:bg-blueColor"}
+                            ${(title == 'Mon profil') ? 'md:hidden' : ''}`}>
+                        {title}
+                    </NavLink>
+                ))}
+
+                <NavLink
+                    to={'/login'}
+                    className={`${isConnected ? 'hidden' : ''} border-[1px] flex p-2 px-3 rounded-sm bg-blueColor 
+                    text-lightColor cursor-pointer transition duration-300 md:hidden`}>
+                    se connecter
+                </NavLink>
+
             </nav>
-        </header>
-    );
+
+            {/* -------------------------Si l'utilisateur est c-------------------------*/}
+            {(isConnected) ?
+                <div className="profil text-darkColor text-[15px] items-center gap-4 ml-auto 
+                            hidden group:cursor-pointer md:flex">
+                    <img
+                        src="./avatar.jpg"
+                        alt="photo de .."
+                        className='rounded-[100%] h-[30px] w-[35px] cursor-pointer'
+                    />
+
+                    <div className='border-2 border-gray-300 p-2 rounded-[100%] cursor-pointer'>
+                        <AiTwotoneBell size={18} />
+                    </div>
+                </div>
+                :
+                <div className="hidden text-textColor text-[15px] items-center gap-4 ml-auto md:flex">
+                    <Link className="border-[1px] border-gray-400 p-2 px-3 rounded-sm  hover:bg-blueColor 
+                        hover:text-lightColor transition duration-300 animate-fadeIn"
+                        to={'/sign-up'}>
+                        Inscription
+                    </Link>
+                    <Link className="border-[1px] border-gray-400  p-2 px-3 rounded-sm hover:bg-blueColor 
+                        hover:text-lightColor transition duration-300 animate-fadeIn"
+                        to={'/login'}>
+                        se connecter
+                    </Link>
+                </div>
+            }
+
+            <BiMenuAltLeft
+                size={35}
+                color='black'
+                className='cursor-pointer md:hidden'
+                onClick={() => setMenuClicked(!isMenuClicked)} />
+
+        </header >
+    )
 }
 
-export default Navbar;
+export default Navbar

@@ -4,4 +4,27 @@
 
 body {
   font-family: Poppins;
+  background: rgb(250, 250, 250);
+  font-size: 13px;
+}
+
+li,.menuList{
+  list-style-type: none;
+  cursor: pointer;
+  position: relative;
+  width: max-content;
+}
+
+.menuList::before {
+  position: absolute;
+  content: '';
+  height: 4px;
+  width: 0;
+  right: 0;
+  bottom: -10px;
+  transition: width 0.3s ease;
+}
+
+.menuList:hover::before {
+  width: 100%;
 }
