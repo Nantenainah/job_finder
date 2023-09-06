@@ -1,8 +1,19 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-    content: ["./src/**/*.{js,jsx,ts,tsx}"],
+module.exports = {
+    darkMode: 'class',
+    content: [
+        "./index.html",
+        "./src/**/*.{js,ts,jsx,tsx}",
+    ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                'lightColor': '#fff',
+                'darkColor': '#252525',
+                'blueColor': '#0099ff',
+                // 'textColor': 'hsl(0,2%,20%)',
+            }
+        },
     },
     plugins: [],
-};
+}
