@@ -38,7 +38,7 @@ const RelatedJobs = () => {
 
 const JobInformations = () => {
     return (
-        <div className="p-5 lg:w-3/4 lg:border-r border-gray-500">
+        <div className="p-5 lg:w-3/4 lg:border-r border-gray-200">
             <div className="flex items-center">
                 <img className="bg-gray-500 w-[50px] h-[50px] mr-5" />
                 <div>
