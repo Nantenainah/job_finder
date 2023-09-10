@@ -1,0 +1,12 @@
+label[for="jobTitle"], label[for="location"], label[for="jobType"] {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.336);
+    padding:15px 0px;
+}
+
+@media (min-width: 768px) {
+    label[for="jobTitle"], label[for="location"], label[for="jobType"], label[for="minSalary"] {
+        border-bottom: 0;
+    }
+}
