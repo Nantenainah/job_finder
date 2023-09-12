@@ -42,7 +42,7 @@ export type Queries = {
 export const getFilteredJobListings = async (queries: Queries) => {
     const response = await fetch(
         BACKEND_URL +
-            "/job-listings" +
+            "/job-listings?" +
             new URLSearchParams({ ...(queries as any) })
     );
     const data = await response.json();
