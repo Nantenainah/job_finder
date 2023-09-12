@@ -10,9 +10,10 @@ const RoundedText = ({ children }: { children: React.ReactNode }) => {
 
 const RelatedJobs = () => {
     return (
-        <aside className=" shadow-md bg-white order-2 lg:order-1 lg:w-1/4 p-5">
-            <h1 className="font-semibold mb-10">Emplois similaires</h1>
-            <div className="flex flex-col space-y-5">
+        <aside className="border border-gray-200 bg-white order-2 lg:order-1 lg:w-1/4 p-5">
+            <h1 className="font-semibold mt-5">Emplois similaires</h1>
+            <hr className="bg-border-200 my-5" />
+            <div className="flex flex-col space-y-4">
                 {Array.from(new Array(7)).map((_, index) => {
                     return (
                         <div
@@ -139,8 +140,8 @@ function JobDetails() {
         <Container>
             <div className="flex flex-col lg:space-x-5 lg:flex-row my-10">
                 <RelatedJobs />
-                <div className="order-1 lg:order-2 lg:w-3/4 shadow-md bg-white">
-                    <div className="h-[60px] bg-gray-600 rounded-t-lg" />
+                <div className="order-1 lg:order-2 lg:w-3/4 bg-white border border-gray-200 rounded-t-lg">
+                    <div className="h-[80px] bg-gray-600 rounded-t-lg" />
                     <div className="flex flex-col lg:flex-row">
                         <JobInformations />
                         <RecruiterInformations />
