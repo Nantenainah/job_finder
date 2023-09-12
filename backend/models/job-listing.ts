@@ -1,29 +1,15 @@
 import { Document, Schema, model } from "mongoose";
 import { IRecruiter } from "./recruiter";
 
-interface IJobListing extends Document {
-    recruiter: Schema.Types.ObjectId | IRecruiter;
-    title: string;
-    description: string;
-    requirements: string;
-    companyName: string;
-    companyLogo?: string;
-    location: string;
-    industry: string;
-    salaryRange?: string;
-    applicationDeadline?: string;
-    employmentStartDate?: string;
-    skills: string;
-    responsibility: string;
-    remoteWorkOption: string;
-}
+export const JOB_TYPES = ["part-time", "full-time", "remote", "contract"];
 
-const jobListingSchema = new Schema<IJobListing>({
+const jobListingSchema = new Schema({
     recruiter: {
         type: Schema.Types.ObjectId,
         ref: "Recruiter",
         required: true,
     },
+
     title: {
         type: String,
         required: true,
@@ -71,6 +57,10 @@ const jobListingSchema = new Schema<IJobListing>({
     remoteWorkOption: {
         type: String,
         required: true,
+    },
+    type: {
+        type: String,
+        enum: [...JOB_TYPES],
     },
 });
 

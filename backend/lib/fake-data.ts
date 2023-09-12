@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import Recruiter from "../models/recruiter";
-import JobListing from "../models/job-listing";
+import JobListing, { JOB_TYPES } from "../models/job-listing";
 import Admin from "../models/admin";
 import Applicant from "../models/applicant";
 
@@ -67,6 +67,8 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
 
         const jobListings = [];
         const numJobListings = faker.number.int({ min: 1, max: 5 });
+        const jobType =
+            JOB_TYPES[faker.number.int({ min: 0, max: JOB_TYPES.length })];
 
         for (let j = 0; j < numJobListings; j++) {
             const fakeJobListing = {
@@ -83,6 +85,7 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
                 skills: faker.lorem.words(),
                 responsibility: faker.lorem.paragraph(),
                 remoteWorkOption: "Yes",
+                type: jobType,
             };
 
             const jobListing = new JobListing({
