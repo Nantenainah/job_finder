@@ -32,6 +32,19 @@ router.get("/", async (req, res) => {
             filter.type = req.query.type;
         }
 
+        if (req.query.exp_min || req.query.exp_max) {
+            if (req.query.exp_min) {
+                filter["experience.min"] = {
+                    $gte: parseInt(req.query.exp_min as string),
+                };
+            }
+            if (req.query.exp_max) {
+                filter["experience.max"] = {
+                    $lte: parseInt(req.query.exp_max as string),
+                };
+            }
+        }
+
         const jobListings = await JobListing.find(filter);
         res.json(jobListings);
     }

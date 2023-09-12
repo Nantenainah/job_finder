@@ -62,6 +62,14 @@ const jobListingSchema = new Schema({
         type: String,
         enum: [...JOB_TYPES],
     },
+    experience: new Schema({
+        min: {
+            type: Number,
+        },
+        max: {
+            type: Number,
+        },
+    }),
 });
 
 const JobListingModel = model("JobListing", jobListingSchema);

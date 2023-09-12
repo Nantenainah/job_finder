@@ -67,8 +67,6 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
 
         const jobListings = [];
         const numJobListings = faker.number.int({ min: 1, max: 5 });
-        const jobType =
-            JOB_TYPES[faker.number.int({ min: 0, max: JOB_TYPES.length })];
 
         for (let j = 0; j < numJobListings; j++) {
             const fakeJobListing = {
@@ -85,7 +83,13 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
                 skills: faker.lorem.words(),
                 responsibility: faker.lorem.paragraph(),
                 remoteWorkOption: "Yes",
-                type: jobType,
+                type: JOB_TYPES[
+                    faker.number.int({ min: 0, max: JOB_TYPES.length })
+                ],
+                experience: {
+                    min: faker.number.int({ min: 0, max: 1 }),
+                    max: faker.number.int({ min: 2, max: 8 }),
+                },
             };
 
             const jobListing = new JobListing({
