@@ -90,6 +90,10 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
                     min: faker.number.int({ min: 0, max: 1 }),
                     max: faker.number.int({ min: 2, max: 8 }),
                 },
+                salary: {
+                    min: faker.finance.amount(1000000, 5000000, 0),
+                    max: faker.finance.amount(1000000, 5000000, 0),
+                },
             };
 
             const jobListing = new JobListing({

@@ -45,6 +45,19 @@ router.get("/", async (req, res) => {
             }
         }
 
+        if (req.query.salary_min || req.query.salary_max) {
+            if (req.query.salary_min) {
+                filter["salary.min"] = {
+                    $gte: parseInt(req.query.salary_min as string),
+                };
+            }
+            if (req.query.salary_max) {
+                filter["salary.max"] = {
+                    $lte: parseInt(req.query.salary_max as string),
+                };
+            }
+        }
+
         const jobListings = await JobListing.find(filter);
         res.json(jobListings);
     }
