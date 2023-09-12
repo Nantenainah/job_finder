@@ -37,9 +37,6 @@ const jobListingSchema = new Schema({
         type: String,
         required: true,
     },
-    salaryRange: {
-        type: String,
-    },
     applicationDeadline: {
         type: String,
     },
@@ -54,10 +51,7 @@ const jobListingSchema = new Schema({
         type: String,
         required: true,
     },
-    remoteWorkOption: {
-        type: String,
-        required: true,
-    },
+
     type: {
         type: String,
         enum: [...JOB_TYPES],

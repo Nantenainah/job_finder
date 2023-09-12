@@ -77,12 +77,10 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
                 companyLogo: fakeRecruiter.logo,
                 location: faker.location.city(),
                 industry: faker.company.buzzPhrase(),
-                salaryRange: faker.finance.amount(),
                 applicationDeadline: faker.date.future().toLocaleDateString(),
                 employmentStartDate: faker.date.future().toLocaleDateString(),
                 skills: faker.lorem.words(),
                 responsibility: faker.lorem.paragraph(),
-                remoteWorkOption: "Yes",
                 type: JOB_TYPES[
                     faker.number.int({ min: 0, max: JOB_TYPES.length })
                 ],
