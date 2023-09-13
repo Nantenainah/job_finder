@@ -57,9 +57,6 @@ const Filter: React.FC<FilterProps> = ({
                     </div>
                 );
             })}
-            <button className="my-4 mx-4 border bg-gray-200 py-3">
-                Appliquer
-            </button>
         </div>
     );
 };
