@@ -1,4 +1,5 @@
 export interface JobListing {
+    _id: string;
     companyName: string;
     title: string;
     description: string;
