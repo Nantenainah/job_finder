@@ -1,9 +1,11 @@
+export type JobType = "part-time" | "full-time" | "contract" | "remote";
+
 export interface JobListing {
     _id: string;
     companyName: string;
     title: string;
     description: string;
-    type: "part-time" | "full-time" | "contract" | "remote";
+    type: JobType;
     experience: {
         min: number;
         max: number;

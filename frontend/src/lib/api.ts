@@ -41,7 +41,7 @@ export type Queries = {
     salary_min?: number;
     salary_max?: number;
 };
-export const getFilteredJobListings = async (queries: Queries) => {
+export const searchJobListings = async (queries: Queries) => {
     const response = await fetch(
         BACKEND_URL +
             "/job-listings?" +
