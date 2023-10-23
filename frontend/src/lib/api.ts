@@ -61,3 +61,13 @@ export const getStats = async ({ month,year }: { month: string,year:string }) =>
     return data;
 };
 
+
+export const getJobTypeStats = async ({ month,year }: { month: string,year:string }) => {
+    const response = await fetch(
+        BACKEND_URL +
+            "/job-listings/job_type_chart?" +
+            new URLSearchParams({ month, year })
+    );
+    const data: {name: string, value:number}[] = await response.json();
+    return data;
+};
