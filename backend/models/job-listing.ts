@@ -3,13 +3,30 @@ import { IRecruiter } from "./recruiter";
 
 export const JOB_TYPES = ["part-time", "full-time", "remote", "contract"];
 
+export const JOB_SECTOR = [
+    "Informatique",
+    "Santé",
+    "Finance",
+    "Éducation",
+    "Art et divertissement",
+    "Transport et logistique",
+    "Hôtellerie et restauration",
+    "Médias et communication",
+    "Construction",
+    "Sciences",
+    "Environnement",
+    "Agriculture",
+    "Fabrication",
+    "Télécommunications",
+];
+
+
 const jobListingSchema = new Schema({
     recruiter: {
         type: Schema.Types.ObjectId,
         ref: "Recruiter",
         required: true,
     },
-
     title: {
         type: String,
         required: true,
@@ -56,6 +73,10 @@ const jobListingSchema = new Schema({
         type: String,
         enum: [...JOB_TYPES],
     },
+    sector:{
+        type: String,
+        enum: [...JOB_SECTOR],
+    },
     experience: new Schema({
         min: {
             type: Number,
@@ -72,6 +93,8 @@ const jobListingSchema = new Schema({
             type: Number,
         },
     }),
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now }
 });
 
 const JobListingModel = model("JobListing", jobListingSchema);

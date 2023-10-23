@@ -50,3 +50,14 @@ export const searchJobListings = async (queries: Queries) => {
     const data: JobListing[] = await response.json();
     return data;
 };
+
+export const getStats = async ({ month,year }: { month: string,year:string }) => {
+    const response = await fetch(
+        BACKEND_URL +
+            "/job-listings/stats?" +
+            new URLSearchParams({ month, year })
+    );
+    const data: {name: string, count:number}[] = await response.json();
+    return data;
+};
+

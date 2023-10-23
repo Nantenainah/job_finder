@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import Recruiter from "../models/recruiter";
-import JobListing, { JOB_TYPES } from "../models/job-listing";
+import JobListing, { JOB_SECTOR, JOB_TYPES } from "../models/job-listing";
 import Admin from "../models/admin";
 import Applicant from "../models/applicant";
 
@@ -83,6 +83,9 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
                 responsibility: faker.lorem.paragraph(),
                 type: JOB_TYPES[
                     faker.number.int({ min: 0, max: JOB_TYPES.length })
+                ],
+                sector: JOB_SECTOR[
+                    faker.number.int({ min: 0, max: JOB_SECTOR.length })
                 ],
                 experience: {
                     min: faker.number.int({ min: 0, max: 1 }),

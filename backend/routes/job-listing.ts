@@ -1,5 +1,5 @@
 import express from "express";
-import JobListing, { JOB_TYPES } from "../models/job-listing";
+import JobListing, { JOB_SECTOR, JOB_TYPES } from "../models/job-listing";
 
 const router = express.Router();
 
@@ -63,6 +63,47 @@ router.get("/", async (req, res) => {
     }
 });
 
+
+router.get("/stats",async (req,res)=>{
+    try {
+    
+        const { month, year } = req.query; // Get the month as a number from the query parameters
+        if (!month || !year) {
+            throw new Error();
+        }
+        // Convert the month to a JavaScript Date object
+        const startDate = new Date(+year, +month - 1, 1); // month is 0-based, so subtract 1
+        const endDate = new Date(+year, +month, 0, 23, 59, 59); // Last day of the month, 23:59:59
+        
+        // Create a query to find job listings within the specified month
+        const jobListings = await JobListing.find({
+          createdAt: {
+            $gte: startDate,
+            $lte: endDate,
+          }
+        });
+        
+        
+        const values = JOB_SECTOR.map((sect) => {
+            let count=0;
+            jobListings.forEach(job => {
+                if (sect === job.sector){
+                    count++;
+                }
+            })
+            return {
+                name: sect,
+                count
+            }
+        })
+
+        res.json(values);
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
+
+});
+
 router.get("/:id", async (req, res) => {
     try {
         const jobListing = await JobListing.findById(req.params.id);
@@ -74,5 +115,17 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default router;

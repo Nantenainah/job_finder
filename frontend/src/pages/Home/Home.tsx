@@ -7,9 +7,10 @@ import PostCardLoading from "../../components/PostCard/PostCardLoading";
 import { getAllJobListings, searchJobListings } from "../../lib/api";
 import { applyFilters } from "../../lib/utils";
 import { Queries } from "../../lib/api";
+import { JobListing } from "../../types";
 
 const Home: React.FC = () => {
-    const [jobs, setJobs] = useState([]);
+    const [jobs, setJobs] = useState<JobListing[]>([]);
     const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
     const loadingItems = Array.from({ length: 9 }, (_, index) => (
         <PostCardLoading key={index} />
@@ -48,7 +49,7 @@ const Home: React.FC = () => {
         }
         (async () => {
             const data = await searchJobListings(queries);
-            setJobs(data as any);
+            setJobs(data as JobListing[]);
         })();
     }
 
@@ -92,7 +93,7 @@ const Home: React.FC = () => {
                         <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
                             {jobs.length === 0
                                 ? loadingItems
-                                : jobs.map((job: any, i: number) => {
+                                : jobs.map((job: JobListing, i: number) => {
                                       return <PostCard key={i} {...job} />;
                                   })}
                         </div>
