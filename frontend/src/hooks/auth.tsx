@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Role } from "../types";
 
+const BACKEND_URL = import.meta.env.VITE_REACT_BACKEND_URL;
+
 type ContextValue = {
     user: any;
     role: Role | null;
@@ -38,7 +40,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     }, [user, role]);
 
     async function login(email: string, password: string) {
-        const res = await fetch("http://localhost:8000/auth/login", {
+        const res = await fetch(BACKEND_URL + "/auth/login", {
             method: "POST",
             credentials: "include",
             headers: {
@@ -55,7 +57,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         if (!isAuthenticated) {
             return;
         }
-        await fetch("http://localhost:8000/auth/logout");
+        await fetch(BACKEND_URL + "/auth/logout");
         localStorage.setItem("auth", JSON.stringify({ role: null, user: {} }));
         setUser({});
         setRole(null);
