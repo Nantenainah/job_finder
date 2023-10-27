@@ -14,3 +14,22 @@ export interface JobListing {
 }
 
 export type Role = "applicant" | "recruiter" | "admin";
+
+export interface StatsResponse {
+    jobListingsCount: number;
+    recruitersCount: number;
+    applicantsCount: number;
+    adminsCount: number;
+    jobTypeStats: JobTypeStats[];
+    jobSectorStats: JobSectorStats[];
+}
+
+export interface JobSectorStats {
+    name: string;
+    count: number;
+}
+
+export interface JobTypeStats {
+    name: string;
+    count: number;
+}
