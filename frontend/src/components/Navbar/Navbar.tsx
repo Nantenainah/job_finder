@@ -13,12 +13,16 @@ type NavbarProps = {
 const Navbar: React.FC<NavbarProps> = () => {
     const [isMenuClicked, setMenuClicked] = useState(false);
     const modifiedMenuData = [...MENU_DATA];
-    const { isAuthenticated, logout } = useAuth();
+    const { isAuthenticated, logout, role } = useAuth();
     const navigate = useNavigate();
 
     // Si l'utilisateur est connecté, add "Mon profil"
     isAuthenticated &&
         modifiedMenuData.push({ path: "/profile", title: "Mon profil" });
+
+    if (isAuthenticated && role === "recruiter") {
+        modifiedMenuData.push({ path: "/publish", title: "Publier" });
+    }
 
     const handleLogout = () => {
         logout()
