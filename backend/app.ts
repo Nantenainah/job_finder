@@ -8,7 +8,7 @@ import applicantRouter from "./routes/applicant";
 import adminRouter from "./routes/admin";
 import jobListingRouter from "./routes/job-listing";
 import authRouter from "./routes/auth";
-import cookieParser from "cookie-parser";
+import statsRouter from "./routes/stats";
 import session from "express-session";
 import passport from "passport";
 import setupPassport from "./config/passport";
@@ -36,6 +36,7 @@ app.use("/applicants", applicantRouter);
 app.use("/admins", adminRouter);
 app.use("/job-listings", jobListingRouter);
 app.use("/auth", authRouter);
+app.use("/stats", statsRouter);
 
 // server listening
 // Wait the database to connect before launching everything
