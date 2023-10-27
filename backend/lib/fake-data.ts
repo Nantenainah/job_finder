@@ -24,6 +24,19 @@ export const generateFakeApplicants = (count: number = 1) => {
         fakeApplicants.push(fakeApplicant);
     }
 
+    fakeApplicants.push({
+        email: "tambatra@gmail.com",
+        username: faker.internet.userName(),
+        lastName: faker.person.lastName(),
+        firstName: faker.person.firstName(),
+        password: "12345678",
+        phoneNumber: faker.phone.number(),
+        address: faker.location.city(),
+        resume: faker.internet.url(),
+        coverLetter: faker.lorem.paragraph(),
+        jobPreference: faker.person.jobType(),
+    });
+
     return fakeApplicants;
 };
 
