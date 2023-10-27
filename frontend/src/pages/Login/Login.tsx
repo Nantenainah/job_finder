@@ -6,6 +6,7 @@ function Login() {
     const { login } = useAuth();
     const navigate = useNavigate();
 
+    const [error, setError] = useState(false);
     const [user, setUser] = useState({
         email: "",
         password: "",
@@ -24,8 +25,8 @@ function Login() {
             .then(() => {
                 navigate("/");
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(() => {
+                setError(true);
             });
     };
 
@@ -74,6 +75,11 @@ function Login() {
                             className="rounded-lg p-2.5 block text-sm focus:outline-none"
                         />
                     </div>
+                    {error ? (
+                        <p className={`text-red-700 mb-3`}>
+                            Email ou mot de passe incorrect
+                        </p>
+                    ) : null}
                     <a href="#" className={`${styles.forgot}`}>
                         forgot password?
                     </a>
