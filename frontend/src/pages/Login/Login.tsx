@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
+import { useAuth } from "../../hooks/auth";
 function Login() {
+    const { login } = useAuth();
+    const navigate = useNavigate();
+
     const [user, setUser] = useState({
         email: "",
         password: "",
@@ -14,18 +18,15 @@ function Login() {
         });
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
         const { email, password } = user;
-        const response = await fetch("http://localhost:8000/auth/login", {
-            headers: {
-                "Content-type": "application/json",
-            },
-            credentials: "include",
-            method: "POST",
-            body: JSON.stringify({ email, password }),
-        });
-        const data = await response.json();
-        console.log(data);
+        login(email, password)
+            .then(() => {
+                navigate("/");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     return (

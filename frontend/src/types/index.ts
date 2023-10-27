@@ -12,3 +12,5 @@ export interface JobListing {
     };
     responsibility: string;
 }
+
+export type Role = "applicant" | "recruiter" | "admin";
