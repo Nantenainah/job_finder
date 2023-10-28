@@ -69,13 +69,13 @@ function Stats() {
                         <h1 className="text-xl ms-10 mb-7 font-bold">
                             Secteurs d'activite
                         </h1>
-                        <SectorStats data={data.jobSectorStats} />
+                        <SectorStats data={data.jobSectorStats || []} />
                         <div className="grid grid-cols-1 lg:grid-cols-3">
                             <div className="h-[350px] w-full bg-white shadow-sm p-10">
                                 <h1 className="text-xl font-bold">
                                     Top type d'emploi
                                 </h1>
-                                <JobTypeChar data={data.jobTypeStats} />
+                                <JobTypeChar data={data.jobTypeStats || []} />
                             </div>
                         </div>
                     </div>
