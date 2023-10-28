@@ -47,20 +47,22 @@ function Stats() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5 justify-between">
                         <Total
                             title="Total des offres"
-                            count={data.jobListingsCount}
+                            count={data.jobListingsCount || 0}
                             bgColor="#005b96"
                             textColor="white"
                         />
                         <Total
                             title="Total de recruteur"
-                            count={data.recruitersCount}
+                            count={data.recruitersCount || 0}
                             bgColor="#6497b1"
                             textColor="white"
                         />
                         <Total
                             title="Total des utilisateurs"
                             bgColor="#b3cde0"
-                            count={data.applicantsCount + data.recruitersCount}
+                            count={
+                                data.applicantsCount + data.recruitersCount || 0
+                            }
                         ></Total>
                     </div>
                     <div className="h-full w-full bg-white px-5 py-10 shadow-sm">
