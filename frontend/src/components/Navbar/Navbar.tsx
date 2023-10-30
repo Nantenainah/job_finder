@@ -1,20 +1,38 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { MENU_DATA } from "../../constants/Menu";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { AiTwotoneBell } from "react-icons/ai";
+import { FiLogOut } from "react-icons/fi";
+import { useAuth } from "../../hooks/auth";
 
 type NavbarProps = {
     isConnected: boolean;
 };
 
-const Navbar: React.FC<NavbarProps> = ({ isConnected }) => {
+const Navbar: React.FC<NavbarProps> = () => {
     const [isMenuClicked, setMenuClicked] = useState(false);
     const modifiedMenuData = [...MENU_DATA];
+    const { isAuthenticated, logout, role } = useAuth();
+    const navigate = useNavigate();
 
     // Si l'utilisateur est connecté, add "Mon profil"
-    isConnected &&
+    isAuthenticated &&
         modifiedMenuData.push({ path: "/profile", title: "Mon profil" });
+
+    if (isAuthenticated && role === "recruiter") {
+        modifiedMenuData.push({ path: "/publish", title: "Publier" });
+    }
+
+    const handleLogout = () => {
+        logout()
+            .then(() => {
+                navigate("/");
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     return (
         <header
@@ -63,7 +81,7 @@ const Navbar: React.FC<NavbarProps> = ({ isConnected }) => {
                 <NavLink
                     to={"/login"}
                     className={`${
-                        isConnected ? "hidden" : ""
+                        isAuthenticated ? "hidden" : ""
                     } border-[1px] flex p-2 px-3 rounded-sm bg-blueColor 
                     text-lightColor cursor-pointer transition duration-300 md:hidden`}
                 >
@@ -72,7 +90,7 @@ const Navbar: React.FC<NavbarProps> = ({ isConnected }) => {
             </nav>
 
             {/* -------------------------Si l'utilisateur est c-------------------------*/}
-            {isConnected ? (
+            {isAuthenticated ? (
                 <div
                     className="profil text-darkColor text-[15px] items-center gap-4 ml-auto 
                             hidden group:cursor-pointer md:flex"
@@ -86,6 +104,13 @@ const Navbar: React.FC<NavbarProps> = ({ isConnected }) => {
                     <div className="border-2 border-gray-300 p-2 rounded-[100%] cursor-pointer">
                         <AiTwotoneBell size={18} />
                     </div>
+
+                    <button
+                        className="border-2 border-gray-300 p-2 rounded-[100%] cursor-pointer"
+                        onClick={handleLogout}
+                    >
+                        <FiLogOut size={18} />
+                    </button>
                 </div>
             ) : (
                 <div className="hidden text-textColor text-[15px] items-center gap-4 ml-auto md:flex">

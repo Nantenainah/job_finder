@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
     BarChart,
     Bar,
@@ -8,9 +7,9 @@ import {
     Tooltip,
     Legend,
 } from "recharts";
-import { getStats } from "../../lib/api";
+import { JobSectorStats } from "../../types";
 
-function formatData(data: Data) {
+function formatData(data: JobSectorStats[]) {
     return data
         .map((e) => {
             if (e.name.length > 4) {
@@ -21,20 +20,11 @@ function formatData(data: Data) {
         .filter((e) => e.count > 0);
 }
 
-type Data = {
-    name: string;
-    count: number;
-}[];
-
-const SectorStats = () => {
-    const [data, setData] = useState<Data>([]);
-
-    useEffect(() => {
-        (async () => {
-            const res = await getStats({ year: "2023", month: "10" });
-            setData(formatData(res));
-        })();
-    }, []);
+interface Props {
+    data: JobSectorStats[];
+}
+const SectorStats = (props: Props) => {
+    const data = formatData(props.data || []);
 
     return (
         <ResponsiveContainer width="100%" height="100%">

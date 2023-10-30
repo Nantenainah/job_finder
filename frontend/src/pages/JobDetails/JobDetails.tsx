@@ -1,4 +1,8 @@
+import { useParams } from "react-router-dom";
 import Container from "../../components/Container/Container";
+import { useEffect, useState } from "react";
+import { getJobListing } from "../../lib/api";
+import { JobListing } from "../../types";
 
 const RoundedText = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -37,14 +41,14 @@ const RelatedJobs = () => {
     );
 };
 
-const JobInformations = () => {
+const JobInformations = ({ title,description,responsibility} : JobListing) => {
     return (
         <div className="p-5 lg:w-3/4 lg:border-r border-gray-200">
             <div className="flex items-center">
                 <img className="bg-gray-500 w-[50px] h-[50px] mr-5" />
                 <div>
                     <h1 className="text-lg font-medium">
-                        Directrice marketing
+                        {title}
                     </h1>
                     <h2 className="text-gray-400">Société e-varotra</h2>
                 </div>
@@ -52,17 +56,11 @@ const JobInformations = () => {
             <hr className="my-5" />
             <h1 className="font-semibold">Description du poste : </h1>
             <p className="text-gray-500">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
-                laboriosam harum, delectus corporis voluptates recusandae
-                laborum nemo provident ut libero aliquam, possimus nam
-                repellendus in, animi sapiente commodi quos! Excepturi?
+                {description}
             </p>
             <h1 className="font-semibold mt-5">Responsabilités : </h1>
             <p className="text-gray-500">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
-                laboriosam harum, delectus corporis voluptates recusandae
-                laborum nemo provident ut libero aliquam, possimus nam
-                repellendus in, animi sapiente commodi quos! Excepturi?
+                {responsibility}
             </p>
             <p className="text-gray-500">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
@@ -93,14 +91,14 @@ const JobInformations = () => {
     );
 };
 
-const RecruiterInformations = () => {
+const RecruiterInformations = ({recruiter,location}:JobListing) => {
     return (
         <div className="p-5 lg:w-1/4 flex flex-col">
             <div className="flex-1">
                 <h1 className="font-semibold">A propos du client</h1>
                 <div className="mt-5">
                     <h2>Nom du client : </h2>
-                    <h3 className="text-gray-500">Société e-varotra</h3>
+                    <h3 className="text-gray-500">{recruiter}</h3>
                 </div>
                 <div className="mt-5">
                     <h2>Membre depuis : </h2>
@@ -109,7 +107,7 @@ const RecruiterInformations = () => {
                 <div className="mt-5">
                     <h2>Adresse</h2>
                     <h3 className="text-gray-500">
-                        Ampitatafika, Antananarivo
+                        {location}
                     </h3>
                 </div>
                 <hr className="my-5" />
@@ -136,6 +134,29 @@ const RecruiterInformations = () => {
 };
 
 function JobDetails() {
+
+    const [jobs, setJobs] = useState<JobListing>();
+    
+    
+    const {jobID} = useParams();
+    useEffect(() => {
+        const fetchJobListings = async () => {
+            try {
+                const job = await getJobListing(jobID as string);
+                console.log(job);
+                setJobs(job);
+            } catch (error) {
+                console.error(
+                    "Erreur lors de la récupération des offres d'emploi :",
+                    error
+                );
+            }
+        };
+        fetchJobListings();
+    }, []);
+
+
+
     return (
         <Container>
             <div className="flex flex-col lg:space-x-5 lg:flex-row my-10">
@@ -143,8 +164,8 @@ function JobDetails() {
                 <div className="order-1 lg:order-2 lg:w-3/4 bg-white border border-gray-200 rounded-t-lg">
                     <div className="h-[80px] bg-gray-600 rounded-t-lg" />
                     <div className="flex flex-col lg:flex-row">
-                        <JobInformations />
-                        <RecruiterInformations />
+                    <JobInformations {...jobs}/>
+                        <RecruiterInformations {...jobs}/>
                     </div>
                 </div>
             </div>

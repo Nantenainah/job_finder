@@ -49,7 +49,11 @@ const Home: React.FC = () => {
         }
         (async () => {
             const data = await searchJobListings(queries);
-            setJobs(data as JobListing[]);
+            if (data.length > 0) {
+                setJobs(data as JobListing[]);
+            } else {
+                alert("Pas de résultats pour vos recherche");
+            }
         })();
     }
 
