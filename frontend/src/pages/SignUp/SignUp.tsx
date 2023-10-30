@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import s from './Signup.module.css'
-function SignUp() {
 
+function SignUp() {
 
     const [user, setUser] = useState({
         email: "",
@@ -16,9 +16,6 @@ function SignUp() {
             [name]: value
         })
     }
-
-
-
 
     return (
         <section className="flex justify-center items-center columns-12">

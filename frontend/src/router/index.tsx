@@ -7,6 +7,7 @@ import Publish from "../pages/Publish/Publish";
 import JobDetails from "../pages/JobDetails/JobDetails";
 import Apply from "../pages/Apply/Apply";
 import Stats from "../pages/stats/Stats";
+import RecruiterPage from "../pages/RecruiterPage/RecruiterPage";
 
 const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: "/stats",
                 element: <Stats/>,
+            },
+            {
+                path: "/recruiter",
+                element: <RecruiterPage/>,
             }
         ],
     },
