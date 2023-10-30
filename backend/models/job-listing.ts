@@ -52,7 +52,7 @@ const jobListingSchema = new Schema({
     },
     industry: {
         type: String,
-        required: true,
+        required: false,
     },
     applicationDeadline: {
         type: String,
@@ -68,7 +68,6 @@ const jobListingSchema = new Schema({
         type: String,
         required: true,
     },
-
     type: {
         type: String,
         enum: [...JOB_TYPES],

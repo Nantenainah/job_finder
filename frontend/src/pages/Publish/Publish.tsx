@@ -43,10 +43,24 @@ function Publish() {
             });
             return;
         }
+        if (name === "expmin"){
+            setData({
+                ...data,
+                experience: {
+                    ...data.salary,
+                    min: parseInt(value),
+                },
+            });
+            return;
+        }
+
+
         setData({
             ...data,
             [name]: value,
         });
+
+
     };
 
     const handleJobTypeSelect = (
@@ -87,7 +101,7 @@ function Publish() {
 
     return (
         <>
-            <div className="bg-lightColor flex justify-center items-center border-b-[1px] mt-[0.02rem] py-[1rem] px-[2rem] md:px-[5rem]">
+            {/* <div className="bg-lightColor flex justify-center items-center border-b-[1px] mt-[0.02rem] py-[1rem] px-[2rem] md:px-[5rem]">
                 <form className="search flex gap-4 w-full py-2 bg-lightColor rounded-full border-[1px] border-gray-200">
                     <div className="flex flex-col gap-2 items-center w-[40%] ms-4 md:px-0 md:flex-row">
                         <svg
@@ -144,7 +158,7 @@ function Publish() {
                         Rechercher
                     </div>
                 </form>
-            </div>
+            </div> */}
             <div className="mx-10 max-w-container h-auto px-4 sm:px-6 lg:px-8 mt-5">
                 <h2 className="flex justify-center my-5 text-lg">
                     Publier une offre
@@ -178,11 +192,12 @@ function Publish() {
                             />
                         </li>
                         <li className="flex flex-col w-full">
-                            <label htmlFor="logo">Logo</label>
+                            <label htmlFor="exp">Experience minimum</label>
                             <input
                                 type="text"
-                                name="logo"
-                                id="logo"
+                                name="expmin"
+                                id="exp"
+                                onChange={handleDataChange}
                                 className="w-full rounded-sm bg-slate-50 h-8 mt-2 mb-8 px-3 focus:outline-none"
                                 placeholder="Ecrivez..."
                             />
