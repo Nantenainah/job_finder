@@ -27,7 +27,10 @@ const recruiterSchema = new Schema<IRecruiter>({
     companyDescription: { type: String },
     websiteUrl: { type: String },
     logo: { type: String },
+}, {
+    timestamps: true
 });
+
 
 const RecruiterModel = model<IRecruiter>("Recruiter", recruiterSchema);
 

@@ -51,3 +51,19 @@ export interface JobTypeStats {
     name: string;
     count: number;
 }
+
+
+export interface Recruiter {
+    email: string;
+    username: string,
+    lastName: string,
+    firstName: string,
+    password: string,
+    companyName: string,
+    phoneNumber: string,
+    companyDescription: string,
+    websiteUrl: string;
+    logo: string;
+    createdAt: string;
+    updatedAt: string;
+};

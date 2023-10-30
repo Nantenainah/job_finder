@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import Container from "../../components/Container/Container";
 import { useEffect, useState } from "react";
-import { getJobListing } from "../../lib/api";
-import { JobListing } from "../../types";
+import { getJobListing, getRecruiter } from "../../lib/api";
+import { JobListing, Recruiter } from "../../types";
 
 const RoundedText = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -41,7 +41,7 @@ const RelatedJobs = () => {
     );
 };
 
-const JobInformations = ({ title,description,responsibility} : JobListing) => {
+const JobInformations = ({ title, description, responsibility }: JobListing) => {
     return (
         <div className="p-5 lg:w-3/4 lg:border-r border-gray-200">
             <div className="flex items-center">
@@ -91,18 +91,33 @@ const JobInformations = ({ title,description,responsibility} : JobListing) => {
     );
 };
 
-const RecruiterInformations = ({recruiter,location}:JobListing) => {
+type RecruiterInformationsProps = {
+    recruiter: Recruiter,
+    job: JobListing
+}
+const RecruiterInformations = ({ recruiter, job }: RecruiterInformationsProps) => {
+    const { firstName, lastName, createdAt } = recruiter
+    const { location } = job
+
+    const inputDate = new Date(createdAt);
+    const name = firstName + " " + lastName
+
+    const options = { month: 'long', day: 'numeric', year: 'numeric' };
+    const formattedDate = inputDate.toLocaleDateString('fr-FR', options as Intl.DateTimeFormatOptions);
+
+    console.log(name)
+
     return (
         <div className="p-5 lg:w-1/4 flex flex-col">
             <div className="flex-1">
                 <h1 className="font-semibold">A propos du client</h1>
                 <div className="mt-5">
                     <h2>Nom du client : </h2>
-                    <h3 className="text-gray-500">{recruiter}</h3>
+                    <h3 className="text-gray-500">{name}</h3>
                 </div>
                 <div className="mt-5">
                     <h2>Membre depuis : </h2>
-                    <h3 className="text-gray-500">12 Janvier 2017</h3>
+                    <h3 className="text-gray-500">{formattedDate}</h3>
                 </div>
                 <div className="mt-5">
                     <h2>Adresse</h2>
@@ -135,16 +150,19 @@ const RecruiterInformations = ({recruiter,location}:JobListing) => {
 
 function JobDetails() {
 
-    const [jobs, setJobs] = useState<JobListing>();
-    
-    
-    const {jobID} = useParams();
+    const [job, setJob] = useState<JobListing>({} as JobListing);
+    const [recruiter, setRecruiter] = useState<Recruiter>({} as Recruiter)
+
+
+    const { jobID } = useParams();
     useEffect(() => {
         const fetchJobListings = async () => {
             try {
                 const job = await getJobListing(jobID as string);
-                console.log(job);
-                setJobs(job);
+                const recruiter = await getRecruiter(job.recruiter)
+                setJob(job);
+                setRecruiter(recruiter)
+                console.log(recruiter);
             } catch (error) {
                 console.error(
                     "Erreur lors de la récupération des offres d'emploi :",
@@ -162,10 +180,10 @@ function JobDetails() {
             <div className="flex flex-col lg:space-x-5 lg:flex-row my-10">
                 <RelatedJobs />
                 <div className="order-1 lg:order-2 lg:w-3/4 bg-white border border-gray-200 rounded-t-lg">
-                    <div className="h-[80px] bg-gray-600 rounded-t-lg" />
+                    <img src={"https://picsum.photos/1280/720"} alt="" className="h-[80px] w-full bg-gray-600 rounded-t-lg" style={{ objectFit: 'cover' }} />
                     <div className="flex flex-col lg:flex-row">
-                    <JobInformations {...jobs}/>
-                        <RecruiterInformations {...jobs}/>
+                        <JobInformations {...job} />
+                        <RecruiterInformations job={job} recruiter={recruiter} />
                     </div>
                 </div>
             </div>
