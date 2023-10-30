@@ -2,15 +2,33 @@ export type JobType = "part-time" | "full-time" | "contract" | "remote";
 
 export interface JobListing {
     _id: string;
-    companyName: string;
+    recruiter: string;
     title: string;
     description: string;
-    type: JobType;
+    requirements: string;
+    companyName: string;
+    companyLogo: string;
+    location: string;
+    industry: string;
+    applicationDeadline: string;
+    employmentStartDate: string;
+    skills: string;
+    responsibility: string;
+    type: string;
+    sector: string;
     experience: {
         min: number;
         max: number;
+        _id: string;
     };
-    responsibility: string;
+    salary: {
+        min: number;
+        max: number;
+        _id: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
 }
 
 export type Role = "applicant" | "recruiter" | "admin";

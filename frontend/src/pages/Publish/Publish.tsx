@@ -1,7 +1,80 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { JobListing } from "../../types";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
 
 function Publish() {
+    const navigate = useNavigate();
+    // const { isAuthenticated, role } = useAuth();
+
     const [isClicked, setIsClicked] = useState([false, false, false, false]);
+
+    const [data, setData] = useState<JobListing>({} as JobListing);
+
+    useEffect(() => {
+        // if (!isAuthenticated || role !== "recruiter") {
+        //     navigate("/");
+        // }
+    }, []);
+
+    const handleDataChange = (
+        e:
+            | React.ChangeEvent<HTMLInputElement>
+            | React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
+        const { name, value } = e.target;
+        if (name === "minSalary") {
+            setData({
+                ...data,
+                salary: {
+                    ...data.salary,
+                    min: parseInt(value),
+                },
+            });
+            return;
+        }
+        if (name === "maxSalary") {
+            setData({
+                ...data,
+                salary: {
+                    ...data.salary,
+                    max: parseInt(value),
+                },
+            });
+            return;
+        }
+        setData({
+            ...data,
+            [name]: value,
+        });
+    };
+
+    const handleJobTypeSelect = (
+        e: React.SyntheticEvent<HTMLInputElement, Event>
+    ) => {
+        setData({
+            ...data,
+            type: e.currentTarget.value,
+        });
+    };
+
+    const handleSubmit = async () => {
+        try {
+            await fetch("http://localhost:8000/job-listings", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+            alert("Post publie");
+            navigate("/");
+        } catch (error) {
+            alert("Echec de publication. ressayer plus tard");
+            console.log(error);
+        }
+    };
 
     const handleChangeColor =
         (index: number) => (e: React.MouseEvent<HTMLParagraphElement>) => {
@@ -82,13 +155,14 @@ function Publish() {
                     </div>
                     <ul className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
                         <li className="flex flex-col w-full">
-                            <label htmlFor="society-name">
+                            <label htmlFor="companyName">
                                 Nom de la sociéte
                             </label>
                             <input
                                 type="text"
-                                name="society-name"
-                                id="society-name"
+                                name="companyName"
+                                id="companyName"
+                                onChange={handleDataChange}
                                 className="w-full rounded-sm bg-slate-50 h-8 mt-2 mb-8 px-3 focus:outline-none"
                                 placeholder="Ecrivez..."
                             />
@@ -116,11 +190,12 @@ function Publish() {
                     </ul>
                     <ul className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 mt-2">
                         <li className="flex flex-col w-full">
-                            <label htmlFor="society-name">Nom du poste</label>
+                            <label htmlFor="title">Nom du poste</label>
                             <input
                                 type="text"
-                                name="society-name"
-                                id="society-name"
+                                name="title"
+                                onChange={handleDataChange}
+                                id="title"
                                 className="w-full rounded-sm bg-slate-50 h-8 mt-2 mb-8 px-3 focus:outline-none"
                                 placeholder="Ecrivez..."
                             />
@@ -190,22 +265,30 @@ function Publish() {
                         </li>
                         <li className="col-span-2 flex lg:flex-row md:flex-col sm:flex-col">
                             <div className="flex flex-col lg:w-[50%] sm:w-[80%]">
-                                <label htmlFor="society-name sm:my-2">
+                                <label
+                                    htmlFor="description"
+                                    className="sm:my-2"
+                                >
                                     Description du poste
                                 </label>
                                 <textarea
                                     name="description"
+                                    onChange={handleDataChange}
                                     cols={80}
                                     rows={10}
                                     className="bg-slate-50 focus:outline-none p-2"
                                 ></textarea>
                             </div>
                             <div className="flex flex-col lg:w-[50%] sm:w-[80%] lg:ms-3">
-                                <label htmlFor="society-name sm:my-2">
+                                <label
+                                    htmlFor="responsibility"
+                                    className="sm:my-2"
+                                >
                                     Responsabilité
                                 </label>
                                 <textarea
-                                    name="description"
+                                    name="responsibility"
+                                    onChange={handleDataChange}
                                     cols={80}
                                     rows={10}
                                     className="bg-slate-50 focus:outline-none p-2"
@@ -220,24 +303,44 @@ function Publish() {
                                 <tbody>
                                     <tr className="grid grid-cols-2 gap-5 mt-2">
                                         <td className="flex">
-                                            <input type="radio" name="choose" />
+                                            <input
+                                                type="radio"
+                                                value={"stage"}
+                                                onChange={handleJobTypeSelect}
+                                                name="choose"
+                                            />
                                             &nbsp;&nbsp;
                                             <p>Stage</p>
                                         </td>
                                         <td className="flex">
-                                            <input type="radio" name="choose" />
+                                            <input
+                                                value={"freelance"}
+                                                onChange={handleJobTypeSelect}
+                                                type="radio"
+                                                name="choose"
+                                            />
                                             &nbsp;&nbsp;
                                             <p>Freelance</p>
                                         </td>
                                     </tr>
                                     <tr className="grid grid-cols-2 gap-5 mt-2">
                                         <td className="flex">
-                                            <input type="radio" name="choose" />
+                                            <input
+                                                type="radio"
+                                                value={"full-time"}
+                                                onChange={handleJobTypeSelect}
+                                                name="choose"
+                                            />
                                             &nbsp;&nbsp;
                                             <p>Temps plein</p>
                                         </td>
                                         <td className="flex">
-                                            <input type="radio" name="choose" />
+                                            <input
+                                                type="radio"
+                                                value={"remote"}
+                                                onChange={handleJobTypeSelect}
+                                                name="choose"
+                                            />
                                             &nbsp;&nbsp;
                                             <p>Distant</p>
                                         </td>
@@ -247,31 +350,32 @@ function Publish() {
                         </li>
                         <li></li>
                         <li>
-                            <label htmlFor="society-name">
-                                Salaire minimum
-                            </label>
+                            <label htmlFor="minSalary">Salaire minimum</label>
                             <input
                                 type="text"
-                                name="society-name"
-                                id="society-name"
+                                name="minSalary"
+                                id="minSalary"
+                                onChange={handleDataChange}
                                 className="w-full rounded-sm bg-slate-50 h-8 mt-2 mb-8 px-3 focus:outline-none"
                                 placeholder="Ecrivez..."
                             />
                         </li>
                         <li>
-                            <label htmlFor="society-name">
-                                Salaire maximum
-                            </label>
+                            <label htmlFor="maxSalary">Salaire maximum</label>
                             <input
                                 type="text"
-                                name="society-name"
-                                id="society-name"
+                                name="maxSalary"
+                                id="maxSalary"
+                                onChange={handleDataChange}
                                 className="w-full rounded-sm bg-slate-50 h-8 mt-2 mb-8 px-3 focus:outline-none"
                                 placeholder="Ecrivez..."
                             />
                         </li>
                     </ul>
-                    <button className="float-right rounded-full my-5 bg-blue-700 py-2 px-20 text-white">
+                    <button
+                        onClick={handleSubmit}
+                        className="float-right rounded-full my-5 bg-blue-700 py-2 px-20 text-white"
+                    >
                         Publier
                     </button>
                 </div>
