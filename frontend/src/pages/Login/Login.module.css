@@ -13,18 +13,18 @@
     box-shadow: -10px -10px 30px var(--light-color), 10px 10px 30px var(--dark-color);
 }
 
-#password,
-#email {
+.email,
+.password {
     width: 300px;
     height: 50px;
     background-color: var(--primary-color);
-    border: transparent solid 4px;
+    border: transparent solid 1px;
     box-shadow: inset -5px -5px 2px -3px var(--light-color), inset 5px 5px 2px -3px var(--dark-color);
 
 }
 
-#email:hover,
-#password:hover {
+.email:hover,
+.password:hover {
     box-shadow: inset -5px -5px 2px -3px var(--light-color), inset 5px 5px 2px -3px var(--dark-color);
 }
 
@@ -37,6 +37,7 @@
 .btn {
     background-color: rgba(6, 155, 241, 0.8);
     width: 200px;
+    height: 50px;
     border: transparent solid 1px;
 }
 
