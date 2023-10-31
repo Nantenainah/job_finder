@@ -81,7 +81,10 @@ function Stats() {
                     </div>
                 </div>
                 <div className="bg-blue-500 h-full w-full lg:w-1/4">
-                    <JobListAside title="Top Postes le plus recherche" />
+                    <JobListAside
+                        title="Top Postes le plus recherche"
+                        jobs={data.topMostWantedJobs || []}
+                    />
                 </div>
             </div>
 

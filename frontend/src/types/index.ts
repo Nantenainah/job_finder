@@ -39,6 +39,7 @@ export interface StatsResponse {
     applicantsCount: number;
     adminsCount: number;
     jobTypeStats: JobTypeStats[];
+    topMostWantedJobs: JobListing[];
     jobSectorStats: JobSectorStats[];
 }
 
@@ -52,18 +53,17 @@ export interface JobTypeStats {
     count: number;
 }
 
-
 export interface Recruiter {
     email: string;
-    username: string,
-    lastName: string,
-    firstName: string,
-    password: string,
-    companyName: string,
-    phoneNumber: string,
-    companyDescription: string,
+    username: string;
+    lastName: string;
+    firstName: string;
+    password: string;
+    companyName: string;
+    phoneNumber: string;
+    companyDescription: string;
     websiteUrl: string;
     logo: string;
     createdAt: string;
     updatedAt: string;
-};
+}

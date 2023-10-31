@@ -3,6 +3,7 @@ import Recruiter from "../models/recruiter";
 import Applicant from "../models/applicant";
 import Admin from "../models/admin";
 import JobListing, { JOB_SECTOR, JOB_TYPES } from "../models/job-listing";
+import { Types } from "mongoose";
 
 const router = express.Router();
 
@@ -78,6 +79,29 @@ const getAllCounts = async () => {
     };
 };
 
+const getTopMostWantedJob = async (count = 7) => {
+    const jobListings = await JobListing.find();
+    const counts: Record<string, { index: number; count: number }> = {};
+    for (let i = 0; i < jobListings.length; i++) {
+        const { title } = jobListings[i];
+        if (counts[title] !== undefined) {
+            counts[title].count += 1;
+        } else {
+            counts[title] = {
+                index: i,
+                count: 0,
+            };
+        }
+    }
+    const topMostWantedJobs = [];
+    const countsValues = Object.values(counts);
+    for (let i = 0; i < countsValues.length && i < count; i++) {
+        const obj = countsValues[i];
+        topMostWantedJobs.push(jobListings[obj.index]);
+    }
+    return topMostWantedJobs;
+};
+
 router.get("/", async (req, res) => {
     try {
         const { month, year } = req.query;
@@ -94,11 +118,13 @@ router.get("/", async (req, res) => {
             parseInt(month as string),
             parseInt(year as string)
         );
+        const topMostWantedJobs = await getTopMostWantedJob();
 
         const response = {
             ...allCounts,
             jobTypeStats,
             jobSectorStats,
+            topMostWantedJobs,
         };
 
         res.json(response);
