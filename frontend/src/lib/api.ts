@@ -36,6 +36,7 @@ export type Queries = {
     title?: string;
     location?: string;
     exp_min?: number;
+    sector: string;
     exp_max?: number;
     type?: "full-time" | "part-time" | "contract" | "remote";
     salary_min?: number;
@@ -51,23 +52,34 @@ export const searchJobListings = async (queries: Queries) => {
     return data;
 };
 
-export const getStats = async ({ month,year }: { month: string,year:string }) => {
+export const getStats = async ({
+    month,
+    year,
+}: {
+    month: string;
+    year: string;
+}) => {
     const response = await fetch(
         BACKEND_URL +
             "/job-listings/stats?" +
             new URLSearchParams({ month, year })
     );
-    const data: {name: string, count:number}[] = await response.json();
+    const data: { name: string; count: number }[] = await response.json();
     return data;
 };
 
-
-export const getJobTypeStats = async ({ month,year }: { month: string,year:string }) => {
+export const getJobTypeStats = async ({
+    month,
+    year,
+}: {
+    month: string;
+    year: string;
+}) => {
     const response = await fetch(
         BACKEND_URL +
             "/job-listings/job_type_chart?" +
             new URLSearchParams({ month, year })
     );
-    const data: {name: string, value:number}[] = await response.json();
+    const data: { name: string; value: number }[] = await response.json();
     return data;
 };

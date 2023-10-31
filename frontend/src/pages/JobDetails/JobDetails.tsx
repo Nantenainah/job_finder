@@ -1,7 +1,12 @@
 import { useParams } from "react-router-dom";
 import Container from "../../components/Container/Container";
 import { useEffect, useState } from "react";
-import { getJobListing, getRecruiter } from "../../lib/api";
+import {
+    getAllJobListings,
+    getJobListing,
+    getRecruiter,
+    searchJobListings,
+} from "../../lib/api";
 import { JobListing, Recruiter } from "../../types";
 
 const RoundedText = ({ children }: { children: React.ReactNode }) => {
@@ -12,13 +17,16 @@ const RoundedText = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
-const RelatedJobs = () => {
+type RelatedJobsProps = {
+    jobs: JobListing[];
+};
+const RelatedJobs = ({ jobs }: RelatedJobsProps) => {
     return (
         <aside className="border border-gray-200 bg-white order-2 lg:order-1 lg:w-1/4 p-5">
             <h1 className="font-semibold mt-5">Emplois similaires</h1>
             <hr className="bg-border-200 my-5" />
             <div className="flex flex-col space-y-4">
-                {Array.from(new Array(7)).map((_, index) => {
+                {jobs.map((job, index) => {
                     return (
                         <div
                             className="flex items-start"
@@ -26,11 +34,9 @@ const RelatedJobs = () => {
                         >
                             <img className="bg-gray-500 w-[45px] h-[45px] mr-5 mt-1" />
                             <div className="flex-1">
-                                <h1 className="font-medium">
-                                    Directrice marketing
-                                </h1>
+                                <h1 className="font-medium">{job.title}</h1>
                                 <h2 className="text-sm text-gray-400">
-                                    Société e-varotra, il y a une heure
+                                    {job.companyName}, {job.createdAt}
                                 </h2>
                             </div>
                         </div>
@@ -41,27 +47,25 @@ const RelatedJobs = () => {
     );
 };
 
-const JobInformations = ({ title, description, responsibility }: JobListing) => {
+const JobInformations = ({
+    title,
+    description,
+    responsibility,
+}: JobListing) => {
     return (
         <div className="p-5 lg:w-3/4 lg:border-r border-gray-200">
             <div className="flex items-center">
                 <img className="bg-gray-500 w-[50px] h-[50px] mr-5" />
                 <div>
-                    <h1 className="text-lg font-medium">
-                        {title}
-                    </h1>
+                    <h1 className="text-lg font-medium">{title}</h1>
                     <h2 className="text-gray-400">Société e-varotra</h2>
                 </div>
             </div>
             <hr className="my-5" />
             <h1 className="font-semibold">Description du poste : </h1>
-            <p className="text-gray-500">
-                {description}
-            </p>
+            <p className="text-gray-500">{description}</p>
             <h1 className="font-semibold mt-5">Responsabilités : </h1>
-            <p className="text-gray-500">
-                {responsibility}
-            </p>
+            <p className="text-gray-500">{responsibility}</p>
             <p className="text-gray-500">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
                 laboriosam harum, delectus corporis voluptates recusandae
@@ -92,20 +96,26 @@ const JobInformations = ({ title, description, responsibility }: JobListing) => 
 };
 
 type RecruiterInformationsProps = {
-    recruiter: Recruiter,
-    job: JobListing
-}
-const RecruiterInformations = ({ recruiter, job }: RecruiterInformationsProps) => {
-    const { firstName, lastName, createdAt } = recruiter
-    const { location } = job
+    recruiter: Recruiter;
+    job: JobListing;
+};
+const RecruiterInformations = ({
+    recruiter,
+    job,
+}: RecruiterInformationsProps) => {
+    const { firstName, lastName, createdAt } = recruiter;
+    const { location } = job;
 
     const inputDate = new Date(createdAt);
-    const name = firstName + " " + lastName
+    const name = firstName + " " + lastName;
 
-    const options = { month: 'long', day: 'numeric', year: 'numeric' };
-    const formattedDate = inputDate.toLocaleDateString('fr-FR', options as Intl.DateTimeFormatOptions);
+    const options = { month: "long", day: "numeric", year: "numeric" };
+    const formattedDate = inputDate.toLocaleDateString(
+        "fr-FR",
+        options as Intl.DateTimeFormatOptions
+    );
 
-    console.log(name)
+    console.log(name);
 
     return (
         <div className="p-5 lg:w-1/4 flex flex-col">
@@ -121,9 +131,7 @@ const RecruiterInformations = ({ recruiter, job }: RecruiterInformationsProps) =
                 </div>
                 <div className="mt-5">
                     <h2>Adresse</h2>
-                    <h3 className="text-gray-500">
-                        {location}
-                    </h3>
+                    <h3 className="text-gray-500">{location}</h3>
                 </div>
                 <hr className="my-5" />
                 <h1 className="font-semibold mb-5">Autres informations</h1>
@@ -149,20 +157,22 @@ const RecruiterInformations = ({ recruiter, job }: RecruiterInformationsProps) =
 };
 
 function JobDetails() {
-
     const [job, setJob] = useState<JobListing>({} as JobListing);
-    const [recruiter, setRecruiter] = useState<Recruiter>({} as Recruiter)
-
+    const [recruiter, setRecruiter] = useState<Recruiter>({} as Recruiter);
+    const [relatedJobs, setRelatedJobs] = useState<JobListing[]>([]);
 
     const { jobID } = useParams();
     useEffect(() => {
         const fetchJobListings = async () => {
             try {
                 const job = await getJobListing(jobID as string);
-                const recruiter = await getRecruiter(job.recruiter)
+                const recruiter = await getRecruiter(job.recruiter);
+                const relatedJobs = await searchJobListings({
+                    sector: job.sector,
+                });
+                setRecruiter(recruiter);
                 setJob(job);
-                setRecruiter(recruiter)
-                console.log(recruiter);
+                setRelatedJobs(relatedJobs);
             } catch (error) {
                 console.error(
                     "Erreur lors de la récupération des offres d'emploi :",
@@ -173,17 +183,23 @@ function JobDetails() {
         fetchJobListings();
     }, []);
 
-
-
     return (
         <Container>
             <div className="flex flex-col lg:space-x-5 lg:flex-row my-10">
-                <RelatedJobs />
+                <RelatedJobs jobs={relatedJobs} />
                 <div className="order-1 lg:order-2 lg:w-3/4 bg-white border border-gray-200 rounded-t-lg">
-                    <img src={"https://picsum.photos/1280/720"} alt="" className="h-[80px] w-full bg-gray-600 rounded-t-lg" style={{ objectFit: 'cover' }} />
+                    <img
+                        src={"https://picsum.photos/1280/720"}
+                        alt=""
+                        className="h-[80px] w-full bg-gray-600 rounded-t-lg"
+                        style={{ objectFit: "cover" }}
+                    />
                     <div className="flex flex-col lg:flex-row">
                         <JobInformations {...job} />
-                        <RecruiterInformations job={job} recruiter={recruiter} />
+                        <RecruiterInformations
+                            job={job}
+                            recruiter={recruiter}
+                        />
                     </div>
                 </div>
             </div>

@@ -16,6 +16,12 @@ router.get("/", async (req, res) => {
         // Filtering or searching
         const filter: any = {};
 
+        if (req.query.sector) {
+            filter.sector = {
+                $regex: new RegExp(req.query.sector as string, "i"),
+            };
+        }
+
         if (req.query.title) {
             filter.title = {
                 $regex: new RegExp(req.query.title as string, "i"),

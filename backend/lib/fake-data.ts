@@ -81,18 +81,12 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
         const jobListings = [];
         const numJobListings = faker.number.int({ min: 1, max: 5 });
         let title = faker.person.jobTitle();
-        let sector =
-            JOB_SECTOR[faker.number.int({ min: 0, max: JOB_SECTOR.length })];
         let changeTitleOn = faker.number.int({ min: 1, max: 8 });
 
         for (let j = 0; j < numJobListings; j++) {
             if (j % changeTitleOn === 0) {
                 title = faker.person.jobTitle();
                 changeTitleOn = faker.number.int({ min: 1, max: 8 });
-                sector =
-                    JOB_SECTOR[
-                        faker.number.int({ min: 0, max: JOB_SECTOR.length })
-                    ];
             }
 
             const fakeJobListing = {
@@ -110,7 +104,9 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
                 type: JOB_TYPES[
                     faker.number.int({ min: 0, max: JOB_TYPES.length })
                 ],
-                sector: sector,
+                sector: JOB_SECTOR[
+                    faker.number.int({ min: 0, max: JOB_SECTOR.length })
+                ],
                 experience: {
                     min: faker.number.int({ min: 0, max: 1 }),
                     max: faker.number.int({ min: 2, max: 8 }),
