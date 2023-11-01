@@ -124,17 +124,25 @@ const RecruiterPage = () => {
                                                 {application.fullName}
                                             </h1>
                                             <a
-                                                href=""
+                                                target="_blank"
+                                                href={
+                                                    "http://localhost:8000/uploads/" +
+                                                    application.cv
+                                                }
                                                 className="text-blue-500 underline"
                                             >
                                                 {application.cv}
                                             </a>
                                             <br />
                                             <a
-                                                href=""
+                                                target="_blank"
+                                                href={
+                                                    "http://localhost:8000/uploads/" +
+                                                    application.lm
+                                                }
                                                 className="text-blue-500 underline"
                                             >
-                                                {application.cv}
+                                                {application.lm}
                                             </a>
                                         </div>
                                     );

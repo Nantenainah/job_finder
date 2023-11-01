@@ -29,6 +29,7 @@ const upload = multer({ storage: storage });
 
 // middleware
 app.use(cors({ credentials: true, origin: ["http://localhost:5173"] }));
+app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
