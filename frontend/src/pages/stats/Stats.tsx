@@ -18,11 +18,13 @@ function Total({
 }: PropsTotal) {
     return (
         <div
-            className={"shadow-sm rounded-sm text-center p-10 text-gray-700 "}
+            className={
+                "shadow-sm rounded-sm text-center p-10 text-gray-700 flex items-center justify-center flex-col"
+            }
             style={{ backgroundColor: bgColor, color: textColor }}
         >
             <h1 className="text-xl font-bold uppercase">{title}</h1>
-            <span className="mt-7 text-lg">{count}</span>
+            <span className="text-lg">{count}</span>
         </div>
     );
 }
@@ -41,10 +43,16 @@ function Stats() {
     }, []);
 
     return (
-        <div className="h-screen w-screen container mx-auto mt-10">
-            <div className="w-full h-[400px] justify-between flex flex-col lg:flex-row lg:space-x-5">
-                <div className=" h-full w-full lg:w-3/4 px-5 shadow-sm">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5 justify-between">
+        <div className="min-h-screen w-screen container mx-auto mt-10 mb-10">
+            <div className="flex flex-col lg:flex-row">
+                <div className="w-full lg:w-1/4 lg:order-2 lg:ml-4">
+                    <JobListAside
+                        title="Top Postes le plus recherche"
+                        jobs={data.topMostWantedJobs || []}
+                    />
+                </div>
+                <div className="flex-1 flex flex-col items-start">
+                    <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5 justify-between">
                         <Total
                             title="Total des offres"
                             count={data.jobListingsCount || 0}
@@ -63,42 +71,84 @@ function Stats() {
                             count={
                                 data.applicantsCount + data.recruitersCount || 0
                             }
-                        ></Total>
+                        />
                     </div>
-                    <div className="h-full w-full bg-white px-5 py-10 shadow-sm">
-                        <h1 className="text-xl ms-10 mb-7 font-bold">
-                            Secteurs d'activite
-                        </h1>
+                    <h1 className="text-xl ms-5 mb-7 mt-5 font-bold">
+                        Secteurs d’activité
+                    </h1>
+                    <div className="h-[500px] w-full">
                         <SectorStats data={data.jobSectorStats || []} />
-                        <div className="grid grid-cols-1 lg:grid-cols-3">
-                            <div className="h-[350px] w-full bg-white shadow-sm p-10">
-                                <h1 className="text-xl font-bold">
-                                    Top type d'emploi
-                                </h1>
-                                <JobTypeChar data={data.jobTypeStats || []} />
-                            </div>
-                        </div>
+                    </div>
+                    <h1 className="text-xl mt-10 font-bold">
+                        Top type d'emploi
+                    </h1>
+                    <div className="h-[200px]">
+                        <JobTypeChar data={data.jobTypeStats || []} />
                     </div>
                 </div>
-                <div className="bg-blue-500 h-full w-full lg:w-1/4">
-                    <JobListAside
-                        title="Top Postes le plus recherche"
-                        jobs={data.topMostWantedJobs || []}
-                    />
-                </div>
             </div>
-
-            {/* <div className="flex bg-red-500">
-                <div className="bg-white rounded-md p-10 h-[500px] w-1/2">
-                </div>
-                <div className="w-1/4">
-                </div>
-            </div>
-            <div>
-                <JobTypeChar />
-            </div> */}
         </div>
     );
+
+    // return (
+    //     <div className="h-screen w-screen container mx-auto mt-10 bg-blue-500">
+    //         <div className="w-full min-h-max justify-between flex flex-col lg:flex-row lg:space-x-5 mb-10">
+    //             <div className=" h-full w-full lg:w-3/4 px-5 shadow-sm">
+    //                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5 justify-between">
+    //                     <Total
+    //                         title="Total des offres"
+    //                         count={data.jobListingsCount || 0}
+    //                         bgColor="#005b96"
+    //                         textColor="white"
+    //                     />
+    //                     <Total
+    //                         title="Total de recruteur"
+    //                         count={data.recruitersCount || 0}
+    //                         bgColor="#6497b1"
+    //                         textColor="white"
+    //                     />
+    //                     <Total
+    //                         title="Total des utilisateurs"
+    //                         bgColor="#b3cde0"
+    //                         count={
+    //                             data.applicantsCount + data.recruitersCount || 0
+    //                         }
+    //                     ></Total>
+    //                 </div>
+    //                 <div className="h-[400px] w-full bg-white px-5 py-10 shadow-sm">
+    //                     <h1 className="text-xl ms-10 mb-7 font-bold">
+    //                         Secteurs d'activite
+    //                     </h1>
+    //                     <SectorStats data={data.jobSectorStats || []} />
+    //                     <div className="grid grid-cols-1 lg:grid-cols-3">
+    //                         <div className="h-[350px] w-full bg-white shadow-sm p-10">
+    //                             <h1 className="text-xl font-bold">
+    //                                 Top type d'emploi
+    //                             </h1>
+    //                             <JobTypeChar data={data.jobTypeStats || []} />
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //             <div className="bg-blue-500 h-full w-full lg:w-1/4">
+    //                 <JobListAside
+    //                     title="Top Postes le plus recherche"
+    //                     jobs={data.topMostWantedJobs || []}
+    //                 />
+    //             </div>
+    //         </div>
+
+    //         {/* <div className="flex bg-red-500">
+    //             <div className="bg-white rounded-md p-10 h-[500px] w-1/2">
+    //             </div>
+    //             <div className="w-1/4">
+    //             </div>
+    //         </div>
+    //         <div>
+    //             <JobTypeChar />
+    //         </div> */}
+    //     </div>
+    // );
 }
 
 export default Stats;

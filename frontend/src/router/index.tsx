@@ -34,12 +34,12 @@ const router = createBrowserRouter([
             },
             {
                 path: "/stats",
-                element: <Stats/>,
+                element: <Stats />,
             },
             {
                 path: "/recruiter",
-                element: <RecruiterPage/>,
-            }
+                element: <RecruiterPage />,
+            },
         ],
     },
 

@@ -35,6 +35,8 @@ interface Props {
 const JobTypeChar = (props: Props) => {
     const { data = [] } = props;
 
+    console.log(data);
+
     return (
         <ResponsiveContainer width="100%" height="100%">
             <PieChart width={400} height={400}>
