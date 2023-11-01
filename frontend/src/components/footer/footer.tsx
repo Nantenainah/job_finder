@@ -11,15 +11,15 @@ const Footer: React.FC = () => {
             <div className='flex items-center flex-col'>
             <div className="flex items-center space-x-2 mb-4">
               <FaMapMarker />
-              <p>Adresse : Votre adresse</p>
+              <p>Adresse : Lot II Mahazo 52 OF Bis K</p>
             </div>
-            <div className="flex items-center space-x-2 mb-4">
+            <div className="flex items-center space-x-4 mb-4">
               <FaPhone />
-              <p>Téléphone : +XX XXX XXX XXX</p>
+              <p>Téléphone : +261 38 54 877 34</p>
             </div>
             <div className="flex items-center space-x-2 mb-4">
               <FaEnvelope />
-              <p>Email : contact@votreentreprise.com</p>
+              <a href="https://mail.google.com/">Email : Team_SOLID_@gmail.comh</a>
             </div>
             </div>
           </div>
@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
        
       </div>
       <div className="text-center mt-6">
-        <p className="text-sm">&copy; {new Date().getFullYear()} Votre Entreprise. Tous droits réservés.</p>
+        <p className="text-sm">&copy; {new Date().getFullYear()} Team_SOLID. Tous droits réservés.</p>
       </div>
     </footer>
   );
