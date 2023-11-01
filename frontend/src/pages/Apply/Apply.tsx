@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useAuth } from "../../hooks/auth";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 type Data = {
     fullName: string;
@@ -33,6 +33,7 @@ function Apply() {
         }
     }, []);
     const { jobID } = useParams();
+    const navigate = useNavigate();
 
     const { user, isAuthenticated, role } = useAuth();
 
@@ -92,7 +93,7 @@ function Apply() {
         }
 
         try {
-            const res = await fetch(
+            await fetch(
                 `http://localhost:8000/applicants/${applicantID}/applications/${jobListingID}`,
                 {
                     method: "POST",
@@ -100,9 +101,10 @@ function Apply() {
                     body: formData,
                 }
             );
-            const resJson = await res.json();
-            console.log(resJson);
+            alert("Votre candidature a ete bien envoyé");
+            navigate("/job-listings/" + jobID);
         } catch (error) {
+            alert("Impossible de postuler");
             console.log(error);
         }
     }
@@ -162,34 +164,8 @@ function Apply() {
                                     name="cv"
                                     id="cv"
                                     onChange={handleCVFileChange}
-                                    className="w-full rounded-sm bg-slate-100 h-12 mt-2 mb-8 px-3 focus:outline-none"
+                                    className="w-full rounded-sm bg-slate-100 h-[200px] mt-2 mb-8 px-3 focus:outline-none"
                                 />
-                                <div
-                                    onDragOver={onDragOver}
-                                    onDrop={onDropCV}
-                                    style={{
-                                        width: "100%",
-                                        height: "200px",
-                                        border: "2px dashed gray",
-                                    }}
-                                    className="flex flex-col items-center justify-center"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
-                                        stroke="currentColor"
-                                        className="w-10 h-10"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                    </svg>
-                                    Glissez et déposez votre CV ici
-                                </div>
                             </div>
                             <div className="flex flex-col lg:w-[50%] sm:w-[80%] lg:ms-3">
                                 <label htmlFor="motivation sm:my-2">
@@ -201,35 +177,8 @@ function Apply() {
                                     name="lm"
                                     id="motivation"
                                     onChange={handleLMFileChange}
-                                    className="w-full rounded-sm bg-slate-100 h-12 mt-2 mb-8 px-3 focus:outline-none"
+                                    className="w-full rounded-sm bg-slate-100 h-[200px] mt-2 mb-8 px-3 focus:outline-none"
                                 />
-                                <div
-                                    onDragOver={onDragOver}
-                                    onDrop={onDropLM}
-                                    style={{
-                                        width: "100%",
-                                        height: "200px",
-                                        border: "2px dashed gray",
-                                    }}
-                                    className="flex flex-col items-center justify-center"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
-                                        stroke="currentColor"
-                                        className="w-10 h-10"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                    </svg>
-                                    Glissez et déposez votre lettre de
-                                    motivation ici
-                                </div>
                             </div>
                         </li>
                     </ul>
