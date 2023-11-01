@@ -1,5 +1,12 @@
-import React from 'react';
-import { FaPhone, FaEnvelope, FaMapMarker, FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import React from "react";
+import {
+    FaPhone,
+    FaEnvelope,
+    FaMapMarker,
+    FaFacebook,
+    FaTwitter,
+    FaLinkedin,
+} from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
@@ -25,14 +32,26 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="col-span-3 md:col-span-1">
-          <h4 className="text-2xl font-bold mb-4">Suivez-nous</h4>
-          <ul className="flex space-x-4 justify-center">
-            <li><a href="/facebook"><FaFacebook size="30"/></a></li>
-            <li><a href="/twitter"><FaTwitter size="30"/></a></li>
-            <li><a href="/linkedin"><FaLinkedin size="30"/></a></li>
-          </ul>
-        </div>
+                <div className="col-span-3 md:col-span-1">
+                    <h4 className="text-2xl font-bold mb-4">Suivez-nous</h4>
+                    <ul className="flex space-x-4 justify-center">
+                        <li>
+                            <a href="/facebook">
+                                <FaFacebook size="30" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/twitter">
+                                <FaTwitter size="30" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/linkedin">
+                                <FaLinkedin size="30" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
 
         <div className="col-span-3 md:col-span-1">
