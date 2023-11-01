@@ -154,6 +154,15 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+router.delete("/:id", async (req, res) => {
+    try {
+        const jobListing = await JobListing.findByIdAndDelete(req.params.id);
+        res.json(jobListing);
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 router.post("/", async (req, res) => {
     try {
         if (!req.isAuthenticated()) {
