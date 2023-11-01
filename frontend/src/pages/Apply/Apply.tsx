@@ -102,7 +102,7 @@ function Apply() {
                 }
             );
             alert("Votre candidature a ete bien envoyé");
-            navigate("/job-listings/" + jobID);
+            navigate("/jobs/" + jobID);
         } catch (error) {
             alert("Impossible de postuler");
             console.log(error);
