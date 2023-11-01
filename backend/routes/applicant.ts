@@ -77,17 +77,30 @@ function createRouter(upload: Multer) {
         "/:applicantID/applications/:jobListingID",
         cpUpload,
         async (req, res) => {
+            if (!req.files) {
+                return;
+            }
+            const files = req.files as {
+                cv: Express.Multer.File[];
+                lm: Express.Multer.File[];
+            };
+
+            const cvFilename = files.cv[0].filename;
+            const lmFilename = files.lm[0].filename;
+
             try {
                 const { applicantID, jobListingID } = req.params;
 
                 const applicationData = {
-                    recruiter: applicantID,
+                    applicant: applicantID,
                     jobListing: jobListingID,
-                    fullName: req.body.name,
+                    fullName: req.body.fullName,
                     email: req.body.email,
                     contact: req.body.contact,
                     salary: req.body.salary,
                     address: req.body.address,
+                    cv: cvFilename,
+                    lm: lmFilename,
                 };
 
                 // add lm and cv here
