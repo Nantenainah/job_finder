@@ -100,23 +100,13 @@ function Apply() {
             </li>
             <li></li>
             <li>
-              <label htmlFor="minSalary">Salaire minimum</label>
+              <label htmlFor="pretSalary">Pretention salariale</label>
               <input
                 type="text"
-                name="minSalary"
-                id="minSalary"
+                name="pretSalary"
+                id="pretSalary"
                 className="w-full rounded-sm bg-slate-50 h-8 mt-2 mb-8 px-3 focus:outline-none"
                 placeholder="Entrez le salaire minimum souhaité"
-              />
-            </li>
-            <li>
-              <label htmlFor="maxSalary">Salaire maximum</label>
-              <input
-                type="text"
-                name="maxSalary"
-                id="maxSalary"
-                className="w-full rounded-sm bg-slate-50 h-8 mt-2 mb-8 px-3 focus:outline-none"
-                placeholder="Entrez le salaire maximum souhaité"
               />
             </li>
           </ul>

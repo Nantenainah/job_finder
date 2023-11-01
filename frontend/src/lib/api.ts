@@ -83,3 +83,10 @@ export const getJobTypeStats = async ({
     const data: { name: string; value: number }[] = await response.json();
     return data;
 };
+
+
+export const getJobByRecruiterID = async (id : string) => {
+    const response = await fetch(BACKEND_URL + "/recruiters/"+id+"/job-listings");
+    const data: JobListing[] = await response.json();
+    return data;
+}; 

@@ -13,7 +13,7 @@ const Filter: React.FC<FilterProps> = ({
     setSelectedFilters,
 }) => {
     const handleOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
+        const value = e.target.name;
         if (e.target.checked) {
             setSelectedFilters((prevSelectedFilters) => [
                 ...prevSelectedFilters,
@@ -46,10 +46,10 @@ const Filter: React.FC<FilterProps> = ({
                         {filter.filters.map(({ id, value }) => (
                             <Checkbox
                                 id={id}
-                                name={filter.id}
+                                name={id}
                                 value={value}
                                 key={id}
-                                checked={selectedFilters.includes(value)}
+                                checked={selectedFilters.includes(id)}
                                 onChange={handleOptionChange}
                                 label={value}
                             />

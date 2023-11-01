@@ -3,16 +3,17 @@ export const FilterData = [
         title: "Type d'emploi",
         id: 1,
         filters: [
+            
             {
-                id: "temps-plein",
+                id: "full-time",
                 value: "Temps plein",
             },
             {
-                id: "temps-partiel",
+                id: "part-time",
                 value: "Temps partiel",
             },
             {
-                id: "contrat",
+                id: "contract",
                 value: "Contrat",
             },
             {
@@ -26,23 +27,19 @@ export const FilterData = [
         id: 2,
         filters: [
             {
-                id: "stagiaire",
-                value: "stagiaire",
-            },
-            {
                 id: "moins-1-an",
                 value: "Moins de 1 an",
             },
             {
-                id: "1-3-ans",
+                id: "1-3",
                 value: "1 à 3 ans",
             },
             {
-                id: "3-5-ans",
+                id: "3-5",
                 value: "3 à 5 ans",
             },
             {
-                id: "plus-de-5-ans",
+                id: "+5",
                 value: "Plus de 5 ans",
             },
         ],
@@ -52,21 +49,117 @@ export const FilterData = [
         id: 3,
         filters: [
             {
-                id: "moins-de-1M",
+                id: "0",
                 value: "Moins de 1 Million MGA",
             },
             {
-                id: "1M-3M",
+                id: "100000-300000",
                 value: "1 Million à 3 Millions MGA",
             },
             {
-                id: "3M-6M",
+                id: "300000-600000",
                 value: "3 Million € à 6 Millions MGA",
             },
             {
-                id: "plus-de-6M",
+                id: "600000-10000000",
                 value: "Plus de 6 Millions MGA",
             },
         ],
     },
 ];
+
+
+const newFilterData = [
+    {
+        target: "type",
+        title: "Type d'emploi", 
+        options: [
+            {
+                title: "Temps plein", 
+                value: "full-time"
+            },
+            {
+                title: "Temps partiel", 
+                value: "part-time"
+            },
+            {
+                title: "Contrat", 
+                value: "contract"
+            },
+            {
+                title: "Stage", 
+                value: "stage"
+            }
+        ]
+    }, 
+    {
+        target: "experience",
+        title: "Experience requis", 
+        options: [
+            {
+                title: "Moins de 1 an", 
+                value: {
+                    min: null, 
+                    max: 1 
+                }
+            },
+            {
+                title: "1 a 3 ans", 
+                value: {
+                    min: 1, 
+                    max: 3 
+                }
+            },
+            {
+                title: "3 a 5 ans", 
+                value: {
+                    min: 3, 
+                    max: 5 
+                }
+            },
+            {
+                title: "Plus de 5 ans", 
+                value: {
+                    min: 5, 
+                    max: null 
+                }
+            }
+        ]
+    }, 
+    {
+        title: "Plage salarial",
+        target: "salary", 
+        options: [
+            {
+                title: "Moins de 1 Million MGA", 
+                value: {
+                    min: null, 
+                    max: 1000000 
+                }
+            },
+            {
+                title: "1 Million à 3 Millions MGA", 
+                value: {
+                    min: 1000000, 
+                    max: 3000000
+                }
+            },
+            {
+                title: "3 Million € à 6 Millions MGA", 
+                value: {
+                    min: 3000000, 
+                    max: 6000000 
+                }
+            },
+            {
+                title: "Plus de 6 Millions MGA", 
+                value: {
+                    min: 6000000,
+                    max: null 
+                }
+            }
+        ]
+    }
+]
+
+export { newFilterData }

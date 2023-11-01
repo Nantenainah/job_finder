@@ -1,7 +1,7 @@
 import { Document, Schema, model } from "mongoose";
 import { IRecruiter } from "./recruiter";
 
-export const JOB_TYPES = ["part-time", "full-time", "remote", "contract"];
+export const JOB_TYPES = ["part-time", "full-time", "remote", "contract", "internship"];
 
 export const JOB_SECTOR = [
     "Informatique",

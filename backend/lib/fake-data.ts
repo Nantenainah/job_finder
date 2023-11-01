@@ -108,7 +108,7 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
                     faker.number.int({ min: 0, max: JOB_SECTOR.length })
                 ],
                 experience: {
-                    min: faker.number.int({ min: 0, max: 1 }),
+                    min: faker.number.int({ min: 0, max: 3 }),
                     max: faker.number.int({ min: 2, max: 8 }),
                 },
                 salary: {
@@ -122,6 +122,7 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
                 ...fakeJobListing,
             });
             jobListings.push(jobListing);
+
         }
 
         fakeData.push({ recruiter, jobListings });
