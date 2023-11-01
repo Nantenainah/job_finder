@@ -35,7 +35,7 @@ function Stats() {
     useEffect(() => {
         (async () => {
             const response = await fetch(
-                "http://localhost:8000/stats?year=2023&month=10"
+                "http://localhost:8000/stats?year=2023&month=11"
             );
             const d: StatsResponse = await response.json();
             setData(d);
