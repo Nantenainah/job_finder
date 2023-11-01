@@ -1,5 +1,7 @@
 import express from "express";
 import Applicant from "../models/applicant";
+import Application from "../models/application";
+import { Types } from "mongoose";
 
 const router = express.Router();
 
@@ -62,6 +64,29 @@ router.delete("/:id", async (req, res) => {
         res.json(deletedApplicant);
     } catch (error: any) {
         res.status(500).json({ error: error.message });
+    }
+});
+
+router.post("/:applicantID/applications/:jobListingID", async (req, res) => {
+    try {
+        const { applicantID, jobListingID } = req.params;
+
+        const applicationData = {
+            recruiter: applicantID,
+            jobListing: jobListingID,
+            fullName: req.body.name,
+            email: req.body.email,
+            contact: req.body.contact,
+            salary: req.body.salary,
+            address: req.body.address,
+        };
+
+        // add lm and cv here
+        const application = new Application(applicationData);
+        const savedApplication = await application.save();
+        res.json(savedApplication);
+    } catch (error) {
+        res.status(400).json({ error: "Failed to create the application" });
     }
 });
 
