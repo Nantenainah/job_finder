@@ -73,16 +73,16 @@ function Stats() {
                             }
                         />
                     </div>
-                    <h1 className="text-xl ms-5 mb-7 mt-5 font-bold">
+                    <h1 className="text-xl ms-10 mb-7 mt-5 font-bold">
                         Secteurs d’activité
                     </h1>
                     <div className="h-[500px] w-full">
                         <SectorStats data={data.jobSectorStats || []} />
                     </div>
-                    <h1 className="text-xl mt-10 font-bold">
+                    <h1 className="text-xl ms-10 mt-10 font-bold">
                         Top type d'emploi
                     </h1>
-                    <div className="h-[200px]">
+                    <div className="h-[350px] w-full">
                         <JobTypeChar data={data.jobTypeStats || []} />
                     </div>
                 </div>
