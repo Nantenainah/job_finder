@@ -3,9 +3,26 @@ import { JobListing } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 
+const sectors = [
+    "Informatique",
+    "Santé",
+    "Finance",
+    "Éducation",
+    "Art et divertissement",
+    "Transport et logistique",
+    "Hôtellerie et restauration",
+    "Médias et communication",
+    "Construction",
+    "Sciences",
+    "Environnement",
+    "Agriculture",
+    "Fabrication",
+    "Télécommunications",
+];
+
 function Publish() {
     const navigate = useNavigate();
-    // const { isAuthenticated, role } = useAuth();
+    const { isAuthenticated, user, role } = useAuth();
 
     const [isClicked, setIsClicked] = useState([false, false, false, false]);
 
@@ -54,6 +71,15 @@ function Publish() {
             return;
         }
 
+        if (!data.sector) {
+            setData({
+                ...data,
+                sector: "Informatique",
+                [name]: value,
+            });
+            return;
+        }
+
         setData({
             ...data,
             [name]: value,
@@ -70,20 +96,38 @@ function Publish() {
     };
 
     const handleSubmit = async () => {
+        if (!isAuthenticated) {
+            alert("Vous n’êtes pas authentifie");
+            navigate("/login");
+            return;
+        }
+
+        if (role !== "recruiter") {
+            alert("Seul un recruteur peut publier des offres");
+            navigate("/login");
+            return;
+        }
+
+        const recruiterID = user._id;
+
         try {
-            await fetch("http://localhost:8000/job-listings", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-            alert("Post publie");
-            navigate("/");
+            const res = await fetch(
+                `http://localhost:8000/recruiters/${recruiterID}/job-listings`,
+                {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                }
+            );
+            const resJson = await res.json();
+            console.log(resJson);
+            // navigate("/");
         } catch (error) {
-            alert("Echec de publication. ressayer plus tard");
             console.log(error);
+            alert("Echec de publication. ressayer plus tard");
         }
     };
 
@@ -211,69 +255,39 @@ function Publish() {
                                 className="w-full rounded-sm bg-slate-50 h-8 mt-2 mb-8 px-3 focus:outline-none"
                                 placeholder="Ecrivez..."
                             />
-                            <label htmlFor="society-name">Catégories</label>
-                            <ul>
-                                <li className="grid grid-cols-2 gap-3 mt-2">
-                                    <p
-                                        className={`flex justify-center border-[1px] rounded-full p-2 ${
-                                            isClicked[0]
-                                                ? "bg-blue-600 text-white"
-                                                : "bg-white"
-                                        }`}
-                                        onClick={handleChangeColor(0)}
-                                    >
-                                        Commercial
-                                    </p>
-                                    <p
-                                        className={`flex justify-center border-[1px] rounded-full p-2 ${
-                                            isClicked[1]
-                                                ? "bg-blue-600 text-white"
-                                                : "bg-white"
-                                        }`}
-                                        onClick={handleChangeColor(1)}
-                                    >
-                                        Environnement
-                                    </p>
-                                    <p
-                                        className={`flex justify-center border-[1px] rounded-full p-2 ${
-                                            isClicked[2]
-                                                ? "bg-blue-600 text-white"
-                                                : "bg-white"
-                                        }`}
-                                        onClick={handleChangeColor(2)}
-                                    >
-                                        Developpement
-                                    </p>
-                                    <p
-                                        className={`flex justify-center border-[1px] rounded-full p-2 ${
-                                            isClicked[3]
-                                                ? "bg-blue-600 text-white"
-                                                : "bg-white"
-                                        }`}
-                                        onClick={handleChangeColor(3)}
-                                    >
-                                        Marketing
-                                    </p>
-                                </li>
-                                <li className="flex mt-2 items-center border-[1px] rounded-full p-2">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
-                                        stroke="currentColor"
-                                        className="w-4 h-4"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M12 4.5v15m7.5-7.5h-15"
-                                        />
-                                    </svg>
-                                    &nbsp;
-                                    <p>Ajouter</p>
-                                </li>
-                            </ul>
+                            <label htmlFor="society-name">Secteur</label>
+                            <select
+                                name="sector"
+                                id="sector"
+                                onChange={(e) => {
+                                    setData((oldData) => ({
+                                        ...oldData,
+                                        sector: e.target.value,
+                                    }));
+                                }}
+                                className="h-[50px] px-2 bg-slate-50"
+                            >
+                                {sectors.map((sector) => {
+                                    return (
+                                        <option value={sector} key={sector}>
+                                            {sector}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                            <div>
+                                <label htmlFor="location">
+                                    Lieu de travail
+                                </label>
+                                <input
+                                    type="text"
+                                    name="location"
+                                    onChange={handleDataChange}
+                                    id="location"
+                                    className="w-full rounded-sm bg-slate-50 h-8 mt-2 mb-8 px-3 focus:outline-none"
+                                    placeholder="Ecrivez..."
+                                />
+                            </div>
                         </li>
                         <li className="col-span-2 flex lg:flex-row md:flex-col sm:flex-col">
                             <div className="flex flex-col lg:w-[50%] sm:w-[80%]">
@@ -308,6 +322,23 @@ function Publish() {
                             </div>
                         </li>
                     </ul>
+                    <div></div>
+                    <div>
+                        {" "}
+                        <div className="flex flex-col lg:w-[50%] sm:w-[80%] lg:ms-3">
+                            <label htmlFor="requirements" className="sm:my-2">
+                                Requirements
+                            </label>
+                            <textarea
+                                id="requirements"
+                                name="requirements"
+                                onChange={handleDataChange}
+                                cols={35}
+                                rows={10}
+                                className="bg-slate-50 focus:outline-none p-2"
+                            ></textarea>
+                        </div>
+                    </div>
                     <ul className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3 h-auto">
                         <li className="flex flex-col w-full">
                             <label htmlFor="society-name">Catégories</label>

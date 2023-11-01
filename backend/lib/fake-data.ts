@@ -24,19 +24,6 @@ export const generateFakeApplicants = (count: number = 1) => {
         fakeApplicants.push(fakeApplicant);
     }
 
-    fakeApplicants.push({
-        email: "tambatra@gmail.com",
-        username: faker.internet.userName(),
-        lastName: faker.person.lastName(),
-        firstName: faker.person.firstName(),
-        password: "12345678",
-        phoneNumber: faker.phone.number(),
-        address: faker.location.city(),
-        resume: faker.internet.url(),
-        coverLetter: faker.lorem.paragraph(),
-        jobPreference: faker.person.jobType(),
-    });
-
     return fakeApplicants;
 };
 
@@ -122,7 +109,6 @@ export const generateFakeRecruiterAndJobListings = (count: number = 1) => {
                 ...fakeJobListing,
             });
             jobListings.push(jobListing);
-
         }
 
         fakeData.push({ recruiter, jobListings });
@@ -148,6 +134,31 @@ const generateAllFakeData = async () => {
         await recruiter.save();
         await JobListing.insertMany(jobListings);
     }
+
+    await Applicant.create({
+        email: "applicant@gmail.com",
+        username: faker.internet.userName(),
+        lastName: faker.person.lastName(),
+        firstName: faker.person.firstName(),
+        password: "12345678",
+        phoneNumber: faker.phone.number(),
+        address: faker.location.city(),
+        resume: faker.internet.url(),
+        coverLetter: faker.lorem.paragraph(),
+        jobPreference: faker.person.jobType(),
+    });
+    await Recruiter.create({
+        email: "recruiter@gmail.com",
+        username: faker.internet.userName(),
+        lastName: faker.person.lastName(),
+        firstName: faker.person.firstName(),
+        password: "12345678",
+        companyName: faker.company.name(),
+        phoneNumber: faker.phone.number(),
+        companyDescription: faker.company.catchPhrase(),
+        websiteUrl: faker.internet.url(),
+        logo: faker.image.url(),
+    });
 };
 
 export default generateAllFakeData;

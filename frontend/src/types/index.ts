@@ -1,4 +1,9 @@
-export type JobType = "part-time" | "full-time" | "contract" | "remote";
+export type JobType =
+    | "part-time"
+    | "full-time"
+    | "contract"
+    | "remote"
+    | "stage";
 
 export interface JobListing {
     _id: string;

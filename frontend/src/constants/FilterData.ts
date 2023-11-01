@@ -3,7 +3,6 @@ export const FilterData = [
         title: "Type d'emploi",
         id: 1,
         filters: [
-            
             {
                 id: "full-time",
                 value: "Temps plein",
@@ -19,6 +18,10 @@ export const FilterData = [
             {
                 id: "remote",
                 value: "En remote",
+            },
+            {
+                id: "stage",
+                value: "Stage",
             },
         ],
     },
@@ -68,98 +71,97 @@ export const FilterData = [
     },
 ];
 
-
 const newFilterData = [
     {
         target: "type",
-        title: "Type d'emploi", 
+        title: "Type d'emploi",
         options: [
             {
-                title: "Temps plein", 
-                value: "full-time"
+                title: "Temps plein",
+                value: "full-time",
             },
             {
-                title: "Temps partiel", 
-                value: "part-time"
+                title: "Temps partiel",
+                value: "part-time",
             },
             {
-                title: "Contrat", 
-                value: "contract"
+                title: "Contrat",
+                value: "contract",
             },
             {
-                title: "Stage", 
-                value: "stage"
-            }
-        ]
-    }, 
+                title: "Stage",
+                value: "stage",
+            },
+        ],
+    },
     {
         target: "experience",
-        title: "Experience requis", 
+        title: "Experience requis",
         options: [
             {
-                title: "Moins de 1 an", 
+                title: "Moins de 1 an",
                 value: {
-                    min: null, 
-                    max: 1 
-                }
+                    min: null,
+                    max: 1,
+                },
             },
             {
-                title: "1 a 3 ans", 
+                title: "1 a 3 ans",
                 value: {
-                    min: 1, 
-                    max: 3 
-                }
+                    min: 1,
+                    max: 3,
+                },
             },
             {
-                title: "3 a 5 ans", 
+                title: "3 a 5 ans",
                 value: {
-                    min: 3, 
-                    max: 5 
-                }
+                    min: 3,
+                    max: 5,
+                },
             },
             {
-                title: "Plus de 5 ans", 
+                title: "Plus de 5 ans",
                 value: {
-                    min: 5, 
-                    max: null 
-                }
-            }
-        ]
-    }, 
+                    min: 5,
+                    max: null,
+                },
+            },
+        ],
+    },
     {
         title: "Plage salarial",
-        target: "salary", 
+        target: "salary",
         options: [
             {
-                title: "Moins de 1 Million MGA", 
+                title: "Moins de 1 Million MGA",
                 value: {
-                    min: null, 
-                    max: 1000000 
-                }
+                    min: null,
+                    max: 1000000,
+                },
             },
             {
-                title: "1 Million à 3 Millions MGA", 
+                title: "1 Million à 3 Millions MGA",
                 value: {
-                    min: 1000000, 
-                    max: 3000000
-                }
+                    min: 1000000,
+                    max: 3000000,
+                },
             },
             {
-                title: "3 Million € à 6 Millions MGA", 
+                title: "3 Million € à 6 Millions MGA",
                 value: {
-                    min: 3000000, 
-                    max: 6000000 
-                }
+                    min: 3000000,
+                    max: 6000000,
+                },
             },
             {
-                title: "Plus de 6 Millions MGA", 
+                title: "Plus de 6 Millions MGA",
                 value: {
                     min: 6000000,
-                    max: null 
-                }
-            }
-        ]
-    }
-]
+                    max: null,
+                },
+            },
+        ],
+    },
+];
 
-export { newFilterData }
+export { newFilterData };
