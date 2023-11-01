@@ -124,21 +124,12 @@ function Publish() {
             );
             const resJson = await res.json();
             console.log(resJson);
-            // navigate("/");
+            navigate("/");
         } catch (error) {
             console.log(error);
             alert("Echec de publication. ressayer plus tard");
         }
     };
-
-    const handleChangeColor =
-        (index: number) => (e: React.MouseEvent<HTMLParagraphElement>) => {
-            setIsClicked(
-                isClicked.map((clicked, i) =>
-                    i === index ? !clicked : clicked
-                )
-            );
-        };
 
     return (
         <>

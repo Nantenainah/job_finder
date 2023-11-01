@@ -9,6 +9,12 @@ import { Link } from "react-router-dom";
 const RecruiterPage = () => {
     const [jobs, setJobs] = useState<JobListing[]>([]);
     const { user } = useAuth();
+    const [applications, setApplications] = useState<any[]>([]);
+    const [showApplications, setShowApplications] = useState({
+        value: false,
+        index: -1,
+    });
+
     useEffect(() => {
         console.log(user);
         if (Object.keys(user).length > 0) {
@@ -43,35 +49,106 @@ const RecruiterPage = () => {
         }
     }
 
+    async function onShowApplications(jobID: string) {
+        try {
+            const res = await fetch(
+                "http://localhost:8000/job-listings/" + jobID + "/applications"
+            );
+            const resJson = await res.json();
+            console.log(resJson);
+            setApplications(resJson);
+        } catch {}
+    }
+
     return (
         <div className="p-10 px-20 h-[80vh]">
             {jobs.length !== 0 ? null : (
                 <h1 className="mt-10 text-lg text-center">Pas de posts</h1>
             )}
-            {jobs.map((job: JobListing) => {
+            {jobs.map((job: JobListing, jobIndex) => {
                 return (
-                    <div
-                        key={job._id}
-                        className="bg-lightColor p-10  my-2 flex justify-between items-center"
-                    >
-                        <div>
-                            <h1 className="text-lg">{job.title}</h1>
-                            <h2 className="text-gray-500">{job.companyName}</h2>
+                    <div key={job._id}>
+                        <div className="bg-lightColor p-10  my-2 flex justify-between items-center">
+                            <div>
+                                <h1 className="text-lg">{job.title}</h1>
+                                <h2 className="text-gray-500">
+                                    {job.companyName}
+                                </h2>
+                            </div>
+                            <div className="flex gap-4 justify-end">
+                                <Link
+                                    to={"/jobs/" + job._id}
+                                    className="border-2 p-2 py-1 px-5 rounded-md hover:bg-slate-100 transition duration-100"
+                                >
+                                    Voir la publication
+                                </Link>
+                                <button
+                                    className="border-2 p-2 py-1 px-5 rounded-md hover:bg-slate-100 transition duration-100"
+                                    onClick={() => {
+                                        setShowApplications({
+                                            value:
+                                                showApplications.value &&
+                                                showApplications.index ===
+                                                    jobIndex
+                                                    ? false
+                                                    : true,
+                                            index: jobIndex,
+                                        });
+
+                                        onShowApplications(job._id);
+                                    }}
+                                >
+                                    {showApplications.value &&
+                                    showApplications.index === jobIndex
+                                        ? "Cacher les demandes"
+                                        : "Voir les demandes"}
+                                </button>
+                                <button
+                                    onClick={() => onDelete(job._id)}
+                                    className="border-2 p-2 py-1 w-fit rounded-md bg-red-500 text-white cursor-pointer"
+                                >
+                                    Supprimer
+                                </button>
+                            </div>
                         </div>
-                        <div className="flex gap-4 justify-end">
-                            <Link
-                                to={"/jobs/" + job._id}
-                                className="border-2 p-2 py-1 px-5 rounded-md hover:bg-slate-100 transition duration-100"
-                            >
-                                Voir
-                            </Link>
-                            <button
-                                onClick={() => onDelete(job._id)}
-                                className="border-2 p-2 py-1 w-fit rounded-md bg-red-500 text-white cursor-pointer"
-                            >
-                                Supprimer
-                            </button>
-                        </div>
+                        {showApplications.value &&
+                        showApplications.index === jobIndex ? (
+                            <div className="my-5">
+                                {applications.map((application) => {
+                                    return (
+                                        <div
+                                            key={application._id}
+                                            className="mx-7 py-5 border px-5"
+                                        >
+                                            <h1 className="font-bold">
+                                                {application.fullName}
+                                            </h1>
+                                            <a
+                                                target="_blank"
+                                                href={
+                                                    "http://localhost:8000/uploads/" +
+                                                    application.cv
+                                                }
+                                                className="text-blue-500 underline"
+                                            >
+                                                {application.cv}
+                                            </a>
+                                            <br />
+                                            <a
+                                                target="_blank"
+                                                href={
+                                                    "http://localhost:8000/uploads/" +
+                                                    application.lm
+                                                }
+                                                className="text-blue-500 underline"
+                                            >
+                                                {application.lm}
+                                            </a>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        ) : null}
                     </div>
                 );
             })}

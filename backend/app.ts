@@ -12,11 +12,24 @@ import statsRouter from "./routes/stats";
 import session from "express-session";
 import passport from "passport";
 import setupPassport from "./config/passport";
+import multer from "multer";
 
 const app = express();
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "uploads/");
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now();
+        cb(null, uniqueSuffix + "_" + file.originalname);
+    },
+});
+
+const upload = multer({ storage: storage });
 
 // middleware
 app.use(cors({ credentials: true, origin: ["http://localhost:5173"] }));
+app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
@@ -32,7 +45,7 @@ setupPassport();
 
 // routes
 app.use("/recruiters", recruiterRouter);
-app.use("/applicants", applicantRouter);
+app.use("/applicants", applicantRouter(upload));
 app.use("/admins", adminRouter);
 app.use("/job-listings", jobListingRouter);
 app.use("/auth", authRouter);

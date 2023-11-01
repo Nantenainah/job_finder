@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Container from "../../components/Container/Container";
 import { useEffect, useState } from "react";
 import {
@@ -146,9 +146,12 @@ const RecruiterInformations = ({
                 </div>
             </div>
             <hr className="my-5" />
-            <button className="w-full rounded-sm bg-blueColor text-white py-3">
+            <Link
+                to={"/apply/" + job._id}
+                className="w-full rounded-sm text-center bg-blueColor text-white py-3"
+            >
                 Postuler
-            </button>
+            </Link>
             <button className="w-full rounded-sm border border-black py-3 mt-3">
                 Enregistrer
             </button>

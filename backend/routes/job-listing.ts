@@ -1,5 +1,7 @@
 import express from "express";
 import JobListing, { JOB_SECTOR, JOB_TYPES } from "../models/job-listing";
+import ApplicantModel from "../models/applicant";
+import Application from "../models/application";
 
 const router = express.Router();
 
@@ -149,6 +151,18 @@ router.get("/:id", async (req, res) => {
             return res.status(404).json({ message: "Job listing not found" });
         }
         res.json(jobListing);
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.get("/:id/applications", async (req, res) => {
+    try {
+        const applications = await Application.find({
+            jobListing: req.params.id,
+        });
+        console.log("Applications : ", applications);
+        res.json(applications);
     } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
