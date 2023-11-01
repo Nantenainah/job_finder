@@ -54,7 +54,7 @@ const PostCard: React.FC<PostProps> = (props) => {
 
                 <div className="flex justify-between text-center gap-2 px-2">
                     <Link
-                        to={`/apply`}
+                        to={`/apply/${id}`}
                         className="bg-blueColor text-lightColor p-2 w-full rounded-sm"
                     >
                         Postuler

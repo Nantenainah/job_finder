@@ -1,4 +1,6 @@
 import { useCallback, useState } from "react";
+import { useAuth } from "../../hooks/auth";
+import { useParams } from "react-router-dom";
 
 type Data = {
     fullName: string;
@@ -30,6 +32,9 @@ function Apply() {
             setData((oldData) => ({ ...oldData, lm: files[0] }));
         }
     }, []);
+    const { jobID } = useParams();
+
+    const { user, isAuthenticated, role } = useAuth();
 
     const [data, setData] = useState<Data>({
         fullName: "",
@@ -60,8 +65,46 @@ function Apply() {
         }
     }
 
-    function handleSubmit() {
-        console.log(data);
+    async function handleSubmit() {
+        if (!isAuthenticated || role !== "applicant") {
+            return;
+        }
+
+        const applicantID = user._id;
+        const jobListingID = jobID;
+
+        // Create a FormData object
+        const formData = new FormData();
+
+        // Append text fields to the FormData
+        formData.append("fullName", data.fullName);
+        formData.append("email", data.email);
+        formData.append("contact", data.contact);
+        formData.append("address", data.address);
+        formData.append("salary", data.salary);
+
+        // Append files to the FormData
+        if (data.cv) {
+            formData.append("cv", data.cv);
+        }
+        if (data.lm) {
+            formData.append("lm", data.lm);
+        }
+
+        try {
+            const res = await fetch(
+                `http://localhost:8000/applicants/${applicantID}/applications/${jobListingID}`,
+                {
+                    method: "POST",
+                    credentials: "include",
+                    body: formData,
+                }
+            );
+            const resJson = await res.json();
+            console.log(resJson);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
