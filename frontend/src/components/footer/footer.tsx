@@ -20,15 +20,15 @@ const Footer: React.FC = () => {
                         <div className="flex items-center flex-col">
                             <div className="flex items-center space-x-2 mb-4">
                                 <FaMapMarker />
-                                <p>Adresse : Votre adresse</p>
+                                <p>Adresse : Lot AZ EDT 246 Antananarivo</p>
                             </div>
                             <div className="flex items-center space-x-2 mb-4">
                                 <FaPhone />
-                                <p>Téléphone : +XX XXX XXX XXX</p>
+                                <p>Téléphone : +261 34 80 242 33</p>
                             </div>
                             <div className="flex items-center space-x-2 mb-4">
                                 <FaEnvelope />
-                                <p>Email : contact@votreentreprise.com</p>
+                                <p>Email : contact@jobfinder.com</p>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
             </div>
             <div className="text-center mt-6">
                 <p className="text-sm">
-                    &copy; {new Date().getFullYear()} Votre Entreprise. Tous
+                    &copy; {new Date().getFullYear()} Job-finder Team. Tous
                     droits réservés.
                 </p>
             </div>
