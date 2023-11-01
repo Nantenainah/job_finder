@@ -239,6 +239,7 @@ function Apply() {
                             <input
                                 type="text"
                                 name="address"
+                                onChange={handleDataChange}
                                 id="address"
                                 className="w-full rounded-sm bg-slate-100 h-12  mt-2 mb-8 px-3 focus:outline-none"
                                 placeholder="Entrez votre adresse"
@@ -250,8 +251,9 @@ function Apply() {
                             </label>
                             <input
                                 type="text"
-                                name="pretSalary"
-                                id="pretSalary"
+                                name="salary"
+                                onChange={handleDataChange}
+                                id="salary"
                                 className="w-full rounded-sm bg-slate-100 h-12 mt-2 mb-8 px-3 focus:outline-none"
                                 placeholder="Entrez le salaire minimum souhaité"
                             />
