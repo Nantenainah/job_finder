@@ -40,7 +40,7 @@ const Home: React.FC = () => {
     useEffect(() => {
         const fetchJobListings = async () => {
             try {
-                await new Promise((resolve) => setTimeout(resolve, 1000));
+                await new Promise((resolve) => setTimeout(resolve, 500));
                 const data = await getAllJobListings();
                 const filteredJobs = applyFilters(data, selectedFilters);
                 setJobs(filteredJobs.length === 0 ? data : filteredJobs);
