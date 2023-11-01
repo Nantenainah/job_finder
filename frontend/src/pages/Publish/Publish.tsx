@@ -43,7 +43,7 @@ function Publish() {
             });
             return;
         }
-        if (name === "expmin"){
+        if (name === "expmin") {
             setData({
                 ...data,
                 experience: {
@@ -54,13 +54,10 @@ function Publish() {
             return;
         }
 
-
         setData({
             ...data,
             [name]: value,
         });
-
-
     };
 
     const handleJobTypeSelect = (
@@ -159,7 +156,7 @@ function Publish() {
                     </div>
                 </form>
             </div> */}
-            <div className="mx-10 max-w-container h-auto px-4 sm:px-6 lg:px-8 mt-5">
+            <div className="mx-10 max-w-container h-auto px-4 sm:px-6 lg:px-8 mt-5 pb-10">
                 <h2 className="flex justify-center my-5 text-lg">
                     Publier une offre
                 </h2>
@@ -289,7 +286,7 @@ function Publish() {
                                 <textarea
                                     name="description"
                                     onChange={handleDataChange}
-                                    cols={80}
+                                    cols={35}
                                     rows={10}
                                     className="bg-slate-50 focus:outline-none p-2"
                                 ></textarea>
@@ -304,7 +301,7 @@ function Publish() {
                                 <textarea
                                     name="responsibility"
                                     onChange={handleDataChange}
-                                    cols={80}
+                                    cols={35}
                                     rows={10}
                                     className="bg-slate-50 focus:outline-none p-2"
                                 ></textarea>
