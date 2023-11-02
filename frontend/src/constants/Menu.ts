@@ -5,10 +5,9 @@ type MenuItem = {
 
 export const MENU_DATA: MenuItem[] = [
     { path: "/", title: "Emplois" },
-    { path: "/about", title: "A propos" },
-    { path: "/faq", title: "FAQ" },
     {
         path: "/stats",
         title: "Statistiques",
     },
+    { path: "/about", title: "A propos" },
 ];

@@ -226,7 +226,7 @@ function Publish() {
                         <li className="flex flex-col w-full">
                             <label htmlFor="exp">Experience minimum</label>
                             <input
-                                type="text"
+                                type="number"
                                 name="expmin"
                                 id="exp"
                                 onChange={handleDataChange}
@@ -291,6 +291,7 @@ function Publish() {
                                 <textarea
                                     name="description"
                                     onChange={handleDataChange}
+                                    minLength={100}
                                     cols={35}
                                     rows={10}
                                     className="bg-slate-50 focus:outline-none p-2"
@@ -323,6 +324,7 @@ function Publish() {
                             <textarea
                                 id="requirements"
                                 name="requirements"
+                                minLength={50}
                                 onChange={handleDataChange}
                                 cols={35}
                                 rows={10}

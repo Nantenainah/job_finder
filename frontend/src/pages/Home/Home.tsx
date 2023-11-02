@@ -43,6 +43,7 @@ const Home: React.FC = () => {
                 await new Promise((resolve) => setTimeout(resolve, 500));
                 const data = await getAllJobListings();
                 const filteredJobs = applyFilters(data, selectedFilters);
+                setCurrentPage(1);
                 setJobs(filteredJobs.length === 0 ? data : filteredJobs);
             } catch (error) {
                 console.error(
@@ -55,6 +56,7 @@ const Home: React.FC = () => {
     }, [selectedFilters]);
 
     function onSearch({ title, location, type, minSalary }: any) {
+        setCurrentPage(1);
         const queries: Queries = {};
         if (title) {
             queries.title = title;

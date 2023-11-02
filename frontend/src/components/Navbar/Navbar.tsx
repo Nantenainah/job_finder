@@ -21,12 +21,12 @@ const Navbar: React.FC<NavbarProps> = () => {
         modifiedMenuData.push({ path: "/profile", title: "Mon profil" });
 
     if (isAuthenticated && role === "recruiter") {
-        modifiedMenuData.push(
-            { path: "/publish", title: "Publier" },
+        modifiedMenuData.unshift(
             {
                 path: "/recruiter",
                 title: "Mes offres",
-            }
+            },
+            { path: "/publish", title: "Publier" },
         );
     }
 
